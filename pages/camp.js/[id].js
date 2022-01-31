@@ -1,11 +1,5 @@
-import Container from '../../components/container';
-
 function CampDetail() {
-  return (
-    <Container>
-      <p>CampDetail</p>
-    </Container>
-  );
+  return <p>CampDetail</p>;
 }
 
 export default CampDetail;

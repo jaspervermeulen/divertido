@@ -1,11 +1,10 @@
+/* eslint-disable no-console */
 import { Form, Formik } from 'formik';
 import Container from '../components/container/container';
 import Footer from '../components/footer/footer';
 import Header from '../components/header';
 import Paragraph from '../components/paragraph/paragraph';
 import TopBar from '../components/topBar/topBar';
-import OliviaImage from '../assets/images/olivia.png';
-import DimitriImage from '../assets/images/dimitri.png';
 import ProfileCard from '../components/profileCard/profileCard';
 import { initialContact } from '../forms/initialValues';
 import { ContactSchema } from '../forms/schemas';
@@ -13,9 +12,6 @@ import FormikInput from '../components/input/formikInput';
 import FormikButton from '../components/button/formikButton';
 
 function Contact() {
-  // console.log(camps.forEach(camp => console.log(camp.image.asset._ref)))
-  // console.log(images);
-
   return (
     <>
       <Container>
@@ -102,7 +98,7 @@ function Contact() {
             <div className="mt-4 flex flex-col-reverse">
               {/* {camps.map((camp, id) => {
                 const image = images.find(
-                  (image) => image._id === camp.image.asset._ref
+                  (item) => item._id === camp.image.asset._ref
                 );
                 return (
                   <ProfileCard
@@ -126,18 +122,3 @@ function Contact() {
 }
 
 export default Contact;
-
-// export async function getStaticProps() {
-//   const res = await fetch("https://iehp9qeu.api.sanity.io/v2021-10-21/data/query/divertido?query=[*[_type == \"Team\"]]");
-//   const camps = await res.json();
-
-//   const res2 = await fetch("https://iehp9qeu.api.sanity.io/v2021-10-21/data/query/divertido?query=[*[_type == \"sanity.imageAsset\"]]");
-//   const images = await res2.json();
-
-//   return {
-//     props: {
-//       camps: camps.result[0],
-//       images: images.result[0]
-//     },
-//   }
-// }

@@ -14,10 +14,13 @@ function ProfileCard({
   qualification,
   location,
   phone,
-  key
+  key,
 }) {
   return (
-    <div key={key} className="mb-6 flex flex-col md:flex-row lg:flex lg:flex-col">
+    <div
+      key={key}
+      className="mb-6 flex flex-col md:flex-row lg:flex lg:flex-col"
+    >
       <Image
         width={200}
         height={200}

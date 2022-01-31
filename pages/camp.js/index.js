@@ -1,11 +1,5 @@
-import Container from '../../components/container';
-
 function Camp() {
-  return (
-    <Container>
-      <p>Camp</p>
-    </Container>
-  );
+  return <p>Camp</p>;
 }
 
 export default Camp;
