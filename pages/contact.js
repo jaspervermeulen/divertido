@@ -10,6 +10,11 @@ import FormikInput from '../components/input/formikInput';
 import FormikButton from '../components/button/formikButton';
 
 function Contact() {
+  const handleSubmit = () => {
+    // eslint-disable-next-line no-console
+    console.info('Submitted');
+  };
+
   return (
     <>
       <Container>
@@ -25,7 +30,7 @@ function Contact() {
             <Formik
               initialValues={initialContact}
               validationSchema={ContactSchema}
-              onSubmit={}
+              onSubmit={handleSubmit}
             >
               {(formik) => {
                 const { errors, touched, isValid, dirty } = formik;
