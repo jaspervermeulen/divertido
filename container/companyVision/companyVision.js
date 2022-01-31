@@ -1,7 +1,8 @@
-import Image from 'next/image';
-import CheckMarkIcon from '../../assets/images/check.svg';
-import QualifiedIcon from '../../assets/images/qualified.svg';
-import DiversiteitIcon from '../../assets/images/diversiteit.svg';
+import {
+  UserGroupIcon,
+  AcademicCapIcon,
+  BadgeCheckIcon,
+} from '@heroicons/react/outline';
 
 function CompanyVision() {
   return (
@@ -13,11 +14,11 @@ function CompanyVision() {
         <div className="mb-4 flex justify-center">
           <div className="flex">
             <div className="flex flex-col items-center px-5 md:w-[250px] lg:w-[300px]">
-              <Image src={DiversiteitIcon} alt="Diversiteit" />
+              <UserGroupIcon className="h-9 w-9" />
               <p className="mt-2 text-center font-fries text-xl">Diversiteit</p>
             </div>
             <div className="flex flex-col items-center px-5 md:w-[250px] lg:w-[300px]">
-              <Image src={QualifiedIcon} alt="Diversiteit" />
+              <AcademicCapIcon className="h-9 w-9" />
               <p className="mt-2 text-center font-fries text-xl">
                 Pedagogisch
                 <br />
@@ -25,7 +26,7 @@ function CompanyVision() {
               </p>
             </div>
             <div className="flex flex-col items-center px-5 md:w-[250px] lg:w-[300px]">
-              <Image src={CheckMarkIcon} alt="Diversiteit" />
+              <BadgeCheckIcon className="h-9 w-9" />
               <p className="mt-2 text-center font-fries text-xl">
                 Waarden staan
                 <br />
@@ -39,7 +40,7 @@ function CompanyVision() {
         <div className="md:flex">
           <div className="flex w-full flex-col items-center px-5 md:w-[250px] lg:w-[300px]">
             <div className="flex w-[300px] flex-col items-center px-5 pt-4 pb-2 md:hidden">
-              <Image src={DiversiteitIcon} alt="Diversiteit" />
+              <UserGroupIcon className="h-9 w-9" />
               <p className="mt-2 text-center font-fries text-xl">Diversiteit</p>
             </div>
             <p className="text-justify leading-relaxed">
@@ -56,7 +57,7 @@ function CompanyVision() {
           </div>
           <div className="flex w-full flex-col items-center px-5 md:w-[250px] lg:w-[300px]">
             <div className="flex w-[300px] flex-col items-center px-5 pt-12 pb-2 md:hidden">
-              <Image src={QualifiedIcon} alt="Diversiteit" />
+              <AcademicCapIcon className="h-9 w-9" />
               <p className="mt-2 text-center font-fries text-xl">
                 Pedagogisch
                 <br />
@@ -73,7 +74,7 @@ function CompanyVision() {
           </div>
           <div className="flex flex-col items-center px-5 md:w-[250px] lg:w-[300px]">
             <div className="flex w-[300px] flex-col items-center px-5 pt-12 pb-2 md:hidden">
-              <Image src={CheckMarkIcon} alt="Diversiteit" />
+              <BadgeCheckIcon className="h-9 w-9" />
               <p className="mt-2 text-center font-fries text-xl">
                 Waarden staan
                 <br />

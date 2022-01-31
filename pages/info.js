@@ -1,9 +1,8 @@
 import { Disclosure } from '@headlessui/react';
-import Image from 'next/image';
+import { ArrowUpIcon } from '@heroicons/react/outline';
 import Container from '../components/container/container';
 import Footer from '../components/footer/footer';
 import Header from '../components/header';
-import ChevronIcon from '../assets/images/ChevronIcon.svg';
 import TopBar from '../components/topBar/topBar';
 
 function Info() {
@@ -28,7 +27,7 @@ function Info() {
                             open ? '' : 'rotate-180 transform'
                           } h-5 w-5`}
                         >
-                          <Image src={ChevronIcon} alt="Up icon" />
+                          <ArrowUpIcon className="h-5 w-5" />
                         </div>
                       </Disclosure.Button>
                       <Disclosure.Panel className="flex flex-col items-start pt-4 pb-2 font-fries text-2xl lg:flex-row">
@@ -78,7 +77,7 @@ function Info() {
                             open ? '' : 'rotate-180 transform'
                           } h-5 w-5`}
                         >
-                          <Image src={ChevronIcon} alt="Up icon" />
+                          <ArrowUpIcon className="h-5 w-5" />
                         </div>
                       </Disclosure.Button>
                       <Disclosure.Panel className=" pt-4 pb-2 font-fries text-2xl">
@@ -106,7 +105,7 @@ function Info() {
                             open ? '' : 'rotate-180 transform'
                           } h-5 w-5`}
                         >
-                          <Image src={ChevronIcon} alt="Up icon" />
+                          <ArrowUpIcon className="h-5 w-5" />
                         </div>
                       </Disclosure.Button>
                       <Disclosure.Panel className=" pt-4 pb-2 font-fries text-2xl">
@@ -143,7 +142,7 @@ function Info() {
                             open ? '' : 'rotate-180 transform'
                           } h-5 w-5`}
                         >
-                          <Image src={ChevronIcon} alt="Up icon" />
+                          <ArrowUpIcon className="h-5 w-5" />
                         </div>
                       </Disclosure.Button>
                       <Disclosure.Panel className=" pt-4 pb-2 font-fries text-2xl">

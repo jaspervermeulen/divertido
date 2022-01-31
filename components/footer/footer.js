@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import {
+  LocationMarkerIcon,
+  MailIcon,
+  CreditCardIcon,
+  BriefcaseIcon,
+} from '@heroicons/react/outline';
 import SmallLogo from '../../assets/images/logo-small.png';
-
-import MapsIcon from '../../assets/images/maps.svg';
-import BankIcon from '../../assets/images/bank.svg';
-import BEIcon from '../../assets/images/be.svg';
-import MailIcon from '../../assets/images/mail.svg';
 
 function Footer() {
   return (
@@ -51,7 +52,7 @@ function Footer() {
                   href="https://goo.gl/maps/zaLJqeJsPp4ybVRb7"
                   className="mb-2 flex hover:opacity-60"
                 >
-                  <Image src={MapsIcon} alt="Maps Icon" />
+                  <LocationMarkerIcon className="mt-0.5 h-6 w-6" />
                   <p className="ml-1.5">Gruttostraat 16, 8380 Lissewege</p>
                 </a>
               </li>
@@ -60,16 +61,16 @@ function Footer() {
                   href="mailto:info@diverto-kampen.be"
                   className="mb-2 flex hover:opacity-60"
                 >
-                  <Image src={MailIcon} alt="Mail Icon" />
+                  <MailIcon className="mt-0.5 h-6 w-6" />
                   <p className="ml-1.5">info@diverto-kampen.be</p>
                 </a>
               </li>
               <li className="mb-2 flex">
-                <Image src={BankIcon} alt="Mail Icon" />
+                <CreditCardIcon className="mt-0.5 h-6 w-6" />
                 <p className="ml-1.5">BE76 7390 2107 7895</p>
               </li>
               <li className="mb-2 flex">
-                <Image src={BEIcon} alt="Mail Icon" />
+                <BriefcaseIcon className="mt-0.5 h-6 w-6" />
                 <p className="ml-1.5">0759.859.594</p>
               </li>
             </ul>
