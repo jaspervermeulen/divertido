@@ -1,11 +1,9 @@
-/* eslint-disable no-console */
 import { Form, Formik } from 'formik';
 import Container from '../components/container/container';
 import Footer from '../components/footer/footer';
 import Header from '../components/header';
 import Paragraph from '../components/paragraph/paragraph';
 import TopBar from '../components/topBar/topBar';
-import ProfileCard from '../components/profileCard/profileCard';
 import { initialContact } from '../forms/initialValues';
 import { ContactSchema } from '../forms/schemas';
 import FormikInput from '../components/input/formikInput';
