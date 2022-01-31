@@ -25,9 +25,7 @@ function Contact() {
             <Formik
               initialValues={initialContact}
               validationSchema={ContactSchema}
-              onSubmit={(values) => {
-                console.log(values);
-              }}
+              onSubmit={}
             >
               {(formik) => {
                 const { errors, touched, isValid, dirty } = formik;
