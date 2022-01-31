@@ -24,39 +24,39 @@ function Header() {
         </Link>
       </div>
       <ul className="flex flex-wrap items-center justify-center px-8 font-fries text-2xl md:justify-between lg:pt-20 xl:px-4">
-        <li className="p-2 md:px-0">
+        <li className="p-2 hover:underline md:px-0">
           <Link href="/">
             <a
               className={
                 pathname === '/'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Home
             </a>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
-          <Link href="/info">
+        <li className="p-2 hover:underline md:px-0">
+          <Link href="/info ">
             <a
               className={
                 pathname === '/info'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Info/Prijzen
             </a>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
+        <li className="p-2 hover:underline md:px-0">
           <Link href="/camps">
             <a
               className={
                 pathname === '/camps'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Kampen
@@ -93,39 +93,39 @@ function Header() {
             </div>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
+        <li className="p-2 hover:underline md:px-0">
           <Link href="/album">
             <a
               className={
                 pathname === '/album'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Fotoalbum
             </a>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
+        <li className="p-2 hover:underline md:px-0">
           <Link href="/register">
             <a
               className={
                 pathname === '/register'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Inschrijven
             </a>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
+        <li className="p-2 hover:underline md:px-0">
           <Link href="/contact">
             <a
               className={
                 pathname === '/contact'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               contact
