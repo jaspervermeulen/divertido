@@ -12,12 +12,8 @@ function HeroSection() {
     <div className="pt-12 pb-20">
       <StandardLayout>
         <div className="flex flex-col items-center justify-center px-4 md:px-0">
-          <p className="text-center font-fries text-3xl lg:text-5xl">
-            Op zoek naar een funtastisch kamp?
-          </p>
-          <p className="text-center font-fries text-3xl lg:text-5xl">
-            Kom op kamp bij divertido vakantiekampen
-            <br /> in{' '}
+          <p className="w-2/3 text-center font-fries text-3xl lg:text-5xl">
+            Op zoek naar een funtastisch kamp in{' '}
             <Link href="/">
               <a className="text-blue transition-all hover:text-orange">
                 Zeebrugge/Dudzele
@@ -27,7 +23,7 @@ function HeroSection() {
             <Link href="/">
               <a className="text-blue hover:text-orange">Sint-Kruis Brugge</a>
             </Link>
-            !
+            ?
           </p>
         </div>
       </StandardLayout>
@@ -147,7 +143,10 @@ function HeroSection() {
       <div className="mt-6 flex justify-center px-4 sm:px-8 xl:px-0">
         <ul className="flex flex-wrap justify-center gap-2 font-fries text-white">
           {games.map((game, id) => (
-            <li key={id} className="rounded-full bg-orange p-2">
+            <li
+              key={id}
+              className="rounded-full bg-orange p-2 hover:rotate-2 hover:scale-110"
+            >
               {game}
             </li>
           ))}
