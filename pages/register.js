@@ -1,8 +1,9 @@
 import Button from '../components/button/button';
-import Container from '../components/container/container';
 import Footer from '../components/footer/footer';
-import Header from '../components/header';
+import Header from '../components/header/header';
+import Heading from '../components/heading/heading';
 import Input from '../components/input/input';
+import Layout from '../components/layout/layout';
 import Paragraph from '../components/paragraph/paragraph';
 
 const grade = [
@@ -53,16 +54,14 @@ const locations = [
 function Register() {
   return (
     <>
-      <Container>
-        <Header />
-        <div className="my-20 gap-12 px-4 sm:px-8 lg:flex xl:px-0">
+      <Header />
+      <Layout>
+        <Heading>Inschrijven</Heading>
+        <div className="gap-8 lg:flex">
           <div className="lg:w-1/3">
             <div className="h-full">
               <div className="sticky top-20">
-                <Paragraph funky={false} size="large">
-                  Inschrijven
-                </Paragraph>
-                <div className="mt-8 rounded-md border-8 border-orange p-4">
+                <div className="rounded-md border-8 border-orange p-4">
                   <Paragraph funky={false} size="medium">
                     !! Schrijf snel in. Plaatsen zijn beperkt !!
                   </Paragraph>
@@ -83,7 +82,7 @@ function Register() {
               </div>
             </div>
           </div>
-          <div className="mt-16 font-fries lg:w-2/3">
+          <div className="font-fries lg:w-2/3">
             <div>
               <Paragraph funky={false} size="medium">
                 Gegevens Deelnemer
@@ -194,7 +193,7 @@ function Register() {
             <Button buttonText="Schrijf mij in" />
           </div>
         </div>
-      </Container>
+      </Layout>
       <Footer />
     </>
   );

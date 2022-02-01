@@ -6,16 +6,16 @@ import {
   CreditCardIcon,
   BriefcaseIcon,
 } from '@heroicons/react/outline';
-import SmallLogo from '../../assets/images/logo-small.png';
+import Logo from '../../assets/logo/logo-letter.svg';
 
 function Footer() {
   return (
-    <div className="bg-orange py-16">
+    <div className="mt-16 bg-orange py-16">
       <div className="mx-auto max-w-screen-xl font-fries">
         <div className="flex items-start justify-center ">
           <Link href="/">
             <div className="mx-12 cursor-pointer transition-all hover:rotate-2 hover:scale-110">
-              <Image src={SmallLogo} alt="Logo" width={202} height={51} />
+              <Image src={Logo} alt="Logo" width={202} height={51} />
             </div>
           </Link>
           <div className="mx-12 hidden text-xl text-white lg:inline">

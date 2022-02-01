@@ -4,13 +4,13 @@ import { useState } from 'react';
 import Modal from '../components/modal/modal';
 
 function MyApp({ Component, pageProps }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <div className="selection:bg-blue selection:text-white">
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
       <Component {...pageProps} />
-    </>
+    </div>
   );
 }
 

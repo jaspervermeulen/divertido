@@ -1,15 +1,15 @@
-import Container from '../components/container/container';
 import Footer from '../components/footer/footer';
-import Header from '../components/header';
-import TopBar from '../components/topBar/topBar';
+import Header from '../components/header/header';
+import Heading from '../components/heading/heading';
+import Layout from '../components/layout/layout';
 
 function Album() {
   return (
     <>
-      <Container>
-        <Header />
-        <TopBar>Album</TopBar>
-      </Container>
+      <Header />
+      <Layout>
+        <Heading>Fotoalbum</Heading>
+      </Layout>
       <Footer />
     </>
   );

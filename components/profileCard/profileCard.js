@@ -4,30 +4,52 @@ import {
   LocationMarkerIcon,
   PhoneIcon,
 } from '@heroicons/react/outline';
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import ImageUrlBuilder from '@sanity/image-url';
 import Paragraph from '../paragraph/paragraph';
 
 function ProfileCard({
-  image,
   name,
   education,
   qualification,
   location,
   phone,
   key,
+  image,
 }) {
+  const [imageUrl, setImageUrl] = useState('');
+
+  useEffect(() => {
+    const imgBuilder = ImageUrlBuilder({
+      projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+      dataset: 'production',
+    });
+
+    setImageUrl(imgBuilder.image(image));
+  }, [image]);
+
   return (
     <div
       key={key}
       className="mb-6 flex flex-col md:flex-row lg:flex lg:flex-col"
     >
-      <Image
+      {/* {imageUrl ? (
+        <Image
+          width={200}
+          height={200}
+          layout="fixed"
+          src={imageUrl}
+          alt="Dimitri Delporte Portret"
+        />
+      ) : null} */}
+
+      <img
+        src={imageUrl}
         width={200}
         height={200}
-        layout="fixed"
-        src={image}
-        alt="Dimitri Delporte Portret"
+        alt={`Portretfoto van ${name}`}
       />
+
       <div className="mt-4 ml-0 md:ml-4 lg:ml-0">
         <Paragraph funky={false} size="medium">
           {name}
