@@ -123,7 +123,7 @@ function Info() {
             <Disclosure as="div" className="mt-6">
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="border-orangepx-4 flex w-full items-center justify-between border-b-4 border-dotted py-2 text-left">
+                  <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-4 py-2 text-left">
                     <span className="font-fries text-2xl">
                       Interessant om te weten
                     </span>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Heading from '../components/heading/heading';
@@ -10,7 +11,11 @@ function Album() {
       <SEO title="Fotoalbum" />
       <Header />
       <Layout>
-        <Heading>Fotoalbum</Heading>
+        <div className="flex h-96 items-center justify-center">
+          <p className="font-fries text-2xl">
+            Bekijk binnenkort hier al de foto's van de kampen!
+          </p>
+        </div>
       </Layout>
       <Footer />
     </>

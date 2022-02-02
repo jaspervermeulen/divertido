@@ -6,6 +6,7 @@ import Image from 'next/image';
 const configuredSanityClient = sanityClient({
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   dataset: 'production',
+  apiVersion: '2021-06-07',
   useCdn: true,
 });
 

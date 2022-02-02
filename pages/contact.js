@@ -110,7 +110,7 @@ function Contact({ teamMembers }) {
                           dirty={dirty}
                           isValid={isValid}
                           label="Verzend"
-                          className="mt-6"
+                          className="mt-6 bg-blue transition-all hover:-translate-y-1 hover:bg-blue-dark hover:shadow-xl"
                         />
                       </Form>
                     </div>

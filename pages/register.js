@@ -1,4 +1,5 @@
 import { PaperClipIcon } from '@heroicons/react/outline';
+import { useEffect, useState } from 'react';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Heading from '../components/heading/heading';
@@ -24,35 +25,28 @@ const gender = [
   { value: 'female', text: 'Meisje' },
 ];
 
-const camps = [
-  {
-    value: 'paaskamp-04/04-08/04',
-    text: 'Paaskamp: 4 april - 8 april 2022',
-  },
-  {
-    value: 'zomerkamp-w1-04/07-08/07',
-    text: 'Zomerkamp Week 1: 4 juli - 8 juli 2022',
-  },
-  {
-    value: 'zomerkamp-w1-11/07-15/07',
-    text: 'Zomerkamp Week 2: 11 juli - 15 juli 2022',
-  },
-  {
-    value: 'zomerkamp-w1-16/08-19/08',
-    text: 'Zomerkamp Week 3: 16 aug - 19 aug 2022',
-  },
-  {
-    value: 'zomerkamp-w1-22/08-26/08',
-    text: 'Zomerkamp Week 4: 22 aug - 26 aug 2022',
-  },
-];
-
 const locations = [
   { value: 'zeebrugge-dudzele', text: 'Zeebrugge/Dudzele' },
   { value: 'sint-kruis-brugge', text: 'Sint-Kruis Brugge' },
 ];
 
-function Register() {
+function Register({ camps }) {
+  const [campOptions, setCampOptions] = useState([]);
+  const [selectedCamp, setSelectedCamp] = useState();
+  const [selectedCampData, setSelectedCampData] = useState();
+
+  useEffect(() => {
+    const result = camps.find((camp) => camp.name === selectedCamp);
+    setSelectedCampData(result);
+  }, [selectedCamp]);
+
+  useEffect(() => {
+    setCampOptions([]);
+    camps.forEach((camp) =>
+      // eslint-disable-next-line no-shadow
+      setCampOptions((campOptions) => [...campOptions, camp.name])
+    );
+  }, []);
   return (
     <>
       <SEO title="Inschrijven" />
@@ -139,16 +133,83 @@ function Register() {
               </Paragraph>
 
               <div className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
-                <Input
-                  type="select"
-                  labelText="Locatie *"
-                  defaultText="Kies optie"
-                  options={locations}
-                />
+                <label>
+                  <p className="font-sans text-lg font-medium">Locatie *</p>
+                  <select
+                    name="locatie"
+                    id="locatie"
+                    className="h-11 w-full cursor-pointer appearance-none rounded-md border-2 border-blue bg-white px-3 font-sans"
+                    onChange={(e) => setSelectedCamp(e.target.value)}
+                  >
+                    <option value="" selected disabled hidden>
+                      Kies je kamplocatie
+                    </option>
+                    {campOptions.map((option, id) => (
+                      <option id={id} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </label>
                 <div>
                   <p className="font-sans text-lg font-medium">Kamp *</p>
                   <div>
-                    {camps.map((camp, id) => (
+                    {selectedCampData ? (
+                      <div>
+                        {selectedCampData.dataEaster
+                          ? selectedCampData.dataEaster.map((camp, index) => (
+                              <label
+                                key={index}
+                                className="mb-1 flex cursor-pointer items-start gap-2"
+                              >
+                                <input
+                                  className="mt-1.5 cursor-pointer rounded border-2 border-blue"
+                                  type="checkbox"
+                                />
+                                <p className="font-sans text-lg font-medium">
+                                  {camp.title}
+                                </p>
+                              </label>
+                            ))
+                          : null}
+                      </div>
+                    ) : (
+                      'selecteer je locatie'
+                    )}
+                    {selectedCampData ? (
+                      <div>
+                        {selectedCampData.dataSummer
+                          ? selectedCampData.dataSummer.map((camp, index) => (
+                              <label
+                                key={index}
+                                className={`mb-1 flex ${
+                                  camp.available ? null : 'cursor-pointer'
+                                } items-start gap-2`}
+                              >
+                                <input
+                                  className={`mt-1.5 cursor-pointer rounded border-2 border-blue ${
+                                    camp.available ? 'opacity-40' : null
+                                  }`}
+                                  type="checkbox"
+                                  disabled={!!camp.available}
+                                />
+                                <p
+                                  className={`${
+                                    camp.available
+                                      ? 'line-through opacity-40'
+                                      : null
+                                  } font-sans text-lg font-medium`}
+                                >
+                                  {camp.title}
+                                </p>
+                              </label>
+                            ))
+                          : null}
+                      </div>
+                    ) : (
+                      'selecteer je locatie'
+                    )}
+                    {/* {camps.map((camp, id) => (
                       <label
                         key={id}
                         className="mb-1 flex cursor-pointer items-start gap-2"
@@ -161,7 +222,7 @@ function Register() {
                           {camp.text}
                         </p>
                       </label>
-                    ))}
+                    ))} */}
                   </div>
                 </div>
               </div>
@@ -179,13 +240,13 @@ function Register() {
                 hieronder downloaden.
               </p>
 
-              <div className="mt-3 flex w-fit items-center rounded-md bg-orange font-fries text-white hover:opacity-60">
+              <div className="mt-3 flex w-fit items-center rounded-md bg-orange font-fries text-white transition-all hover:-translate-y-1 hover:bg-orange-dark hover:shadow-xl">
                 <a
                   href="/files/Medische-fiche.pdf"
                   alt="alt text"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="align-center mt-1 flex px-4 py-2"
+                  className="align-center mt-1 flex px-4 py-2 "
                 >
                   <PaperClipIcon className="mt-0.5 h-5 w-5" />
                   <p className="ml-0.5 text-xl">Download Medische Fiche</p>
@@ -221,7 +282,7 @@ function Register() {
             </div>
             <button
               type="button"
-              className="mt-12 h-12 w-full rounded-md bg-blue font-fries text-white hover:opacity-60"
+              className="mt-12 h-12 w-full rounded-md bg-blue font-fries text-white transition-all hover:-translate-y-1 hover:bg-blue-dark hover:shadow-xl"
             >
               Schrijf mij in
             </button>
@@ -232,5 +293,14 @@ function Register() {
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  const query = `*[ _type == "camp" ]`;
+  const url = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${query}`;
+  const camps = await fetch(url).then((res) => res.json());
+  return {
+    props: { camps: camps.result },
+  };
+};
 
 export default Register;

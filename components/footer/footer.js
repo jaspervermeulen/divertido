@@ -12,13 +12,15 @@ function Footer() {
   return (
     <div className="mt-16 bg-orange py-16">
       <div className="mx-auto max-w-screen-xl font-fries">
-        <div className="flex items-start justify-center ">
-          <Link href="/">
-            <div className="mx-12 cursor-pointer transition-all hover:rotate-2 hover:scale-110">
-              <Image src={Logo} alt="Logo" width={202} height={51} />
-            </div>
-          </Link>
-          <div className="mx-12 hidden text-xl text-white lg:inline">
+        <div className="grid grid-cols-1 content-center items-center md:grid-cols-2 lg:grid-cols-3">
+          <div className="justify-self-center">
+            <Link href="/">
+              <div className="mx-12 cursor-pointer transition-all hover:rotate-2 hover:scale-110">
+                <Image src={Logo} alt="Logo" width={202} height={51} />
+              </div>
+            </Link>
+          </div>
+          <div className="mx-12 hidden justify-self-center text-xl text-white lg:inline">
             <ul>
               <li>Navigatie</li>
               <li>
@@ -45,7 +47,7 @@ function Footer() {
               </li>
             </ul>
           </div>
-          <div className="mx-12 hidden text-xl text-white md:inline lg:mt-0">
+          <div className="mx-12 hidden justify-self-center text-xl text-white md:inline lg:mt-0">
             <ul>
               <li>
                 <a
@@ -74,6 +76,13 @@ function Footer() {
                 <p className="ml-1.5">0759.859.594</p>
               </li>
             </ul>
+          </div>
+        </div>
+        <div className="mt-6 grid grid-cols-1 content-end items-end">
+          <div className="justify-self-end">
+            <p className="font-sans text-sm font-medium text-white opacity-70">
+              <Link href="/policy">Privacy Policy</Link> &bull; Website by Billy
+            </p>
           </div>
         </div>
       </div>
