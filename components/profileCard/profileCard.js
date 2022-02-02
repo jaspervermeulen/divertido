@@ -31,26 +31,17 @@ function ProfileCard({
   return (
     <div
       key={key}
-      className="mb-6 flex flex-col md:flex-row lg:flex lg:flex-col"
+      className="flex w-fit items-center gap-6 rounded-lg border-4 border-orange border-opacity-50 bg-opacity-50 px-6 py-4 transition-all hover:border-blue"
     >
-      {/* {imageUrl ? (
-        <Image
-          width={200}
-          height={200}
-          layout="fixed"
-          src={imageUrl}
-          alt="Dimitri Delporte Portret"
-        />
-      ) : null} */}
-
       <img
         src={imageUrl}
         width={200}
         height={200}
         alt={`Portretfoto van ${name}`}
+        className="rounded-full"
       />
 
-      <div className="mt-4 ml-0 md:ml-4 lg:ml-0">
+      <div className="ml-0 md:ml-4 lg:ml-0">
         <Paragraph funky={false} size="medium">
           {name}
         </Paragraph>

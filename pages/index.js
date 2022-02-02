@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -14,10 +15,13 @@ import Image3 from '../assets/images/3.png';
 import Image4 from '../assets/images/4.png';
 import { games } from '../data/games';
 import Layout from '../components/layout/layout';
+import SEO from '../components/seo/seo';
+import CampCard from '../components/cards/campCard';
 
 function Home({ camps }) {
   return (
     <>
+      <SEO title="Home" />
       <Header />
       <div className="py-16">
         <Layout>
@@ -104,20 +108,27 @@ function Home({ camps }) {
               <p>Ontdek onze kampen</p>
             </div>
             <div className="mt-6 grid grid-cols-1 gap-4 px-4 sm:grid-cols-2 lg:grid-cols-3">
-              {camps.result.map((camp, index) => (
-                <div
-                  key={index}
-                  className="rounded-lg border-8 border-white p-6"
-                >
-                  {/* <Image src={camp.image} alt="Zeebrugge" layout="responsive" /> */}
-                  <p className="font-fries text-2xl">{camp.name}</p>
-                  <p>{camp.description}</p>
-                  <Link href="/">
-                    <a className="text-fries mt-6 flex items-center justify-center rounded-sm bg-white py-3 font-fries text-xl text-blue transition-all hover:-translate-y-1 hover:shadow-xl">
-                      Ontdek dit kamp
-                    </a>
-                  </Link>
-                </div>
+              {camps.map((camp, index) => (
+                // <div
+                //   key={index}
+                //   className="rounded-lg border-8 border-white p-6"
+                // >
+                //   {/* <Image src={camp.image} alt="Zeebrugge" layout="responsive" /> */}
+                //   <p className="font-fries text-2xl">{camp.name}</p>
+                //   <p>{camp.description}</p>
+                //   <Link href={`/camps/${stringToSlug(camp.name)}`}>
+                //     <a className="text-fries mt-6 flex items-center justify-center rounded-sm bg-white py-3 font-fries text-xl text-blue transition-all hover:-translate-y-1 hover:shadow-xl">
+                //       Ontdek dit kamp
+                //     </a>
+                //   </Link>
+                // </div>
+                <CampCard
+                  index={index}
+                  name={camp.name}
+                  description={camp.description}
+                  image={camp.cover}
+                  accentColor
+                />
               ))}
             </div>
           </div>
@@ -227,7 +238,7 @@ export const getServerSideProps = async () => {
   const url = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${query}`;
   const camps = await fetch(url).then((res) => res.json());
   return {
-    props: { camps },
+    props: { camps: camps.result },
   };
 };
 

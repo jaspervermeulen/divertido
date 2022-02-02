@@ -1,10 +1,11 @@
-import Button from '../components/button/button';
+import { PaperClipIcon } from '@heroicons/react/outline';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Heading from '../components/heading/heading';
 import Input from '../components/input/input';
 import Layout from '../components/layout/layout';
 import Paragraph from '../components/paragraph/paragraph';
+import SEO from '../components/seo/seo';
 
 const grade = [
   { value: '1ekleuter', text: '1e kleuter' },
@@ -54,6 +55,7 @@ const locations = [
 function Register() {
   return (
     <>
+      <SEO title="Inschrijven" />
       <Header />
       <Layout>
         <Heading>Inschrijven</Heading>
@@ -164,6 +166,33 @@ function Register() {
                 </div>
               </div>
             </div>
+
+            <div className="mt-12">
+              <Paragraph funky={false} size="medium">
+                Medische fiche *
+              </Paragraph>
+
+              <p className="font-sans text-lg font-medium">
+                Hieronder kunt u de medische fiche downloaden, deze is verplicht
+                om in te vullen en mee te brengen op de eerste kampdag. Je
+                krijgt deze ook opgezonden via mail of je kan deze alvast
+                hieronder downloaden.
+              </p>
+
+              <div className="mt-3 flex w-fit items-center rounded-md bg-orange font-fries text-white hover:opacity-60">
+                <a
+                  href="/files/Medische-fiche.pdf"
+                  alt="alt text"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="align-center mt-1 flex px-4 py-2"
+                >
+                  <PaperClipIcon className="mt-0.5 h-5 w-5" />
+                  <p className="ml-0.5 text-xl">Download Medische Fiche</p>
+                </a>
+              </div>
+            </div>
+
             <div className="mt-12">
               <Paragraph funky={false} size="medium">
                 Gdpr
@@ -190,7 +219,12 @@ function Register() {
                 </p>
               </label>
             </div>
-            <Button buttonText="Schrijf mij in" />
+            <button
+              type="button"
+              className="mt-12 h-12 w-full rounded-md bg-blue font-fries text-white hover:opacity-60"
+            >
+              Schrijf mij in
+            </button>
           </div>
         </div>
       </Layout>

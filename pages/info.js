@@ -4,10 +4,12 @@ import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Heading from '../components/heading/heading';
 import Layout from '../components/layout/layout';
+import SEO from '../components/seo/seo';
 
 function Info() {
   return (
     <>
+      <SEO title="Info/Prijzen" />
       <Header />
       <Layout>
         <Heading>Info/Prijzen</Heading>
@@ -16,7 +18,7 @@ function Info() {
             <Disclosure>
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-0 px-4 py-2 text-left">
+                  <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange  px-4 py-2 text-left">
                     <span className="font-fries text-2xl">Voor wie?</span>
                     <div
                       className={`${
@@ -64,7 +66,7 @@ function Info() {
             <Disclosure as="div" className="mt-6">
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-0 px-4 py-2 text-left">
+                  <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-4 py-2 text-left">
                     <span className="font-fries text-2xl">
                       Wat neem ik mee?
                     </span>
@@ -90,7 +92,7 @@ function Info() {
             <Disclosure as="div" className="mt-6">
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-0 px-4 py-2 text-left">
+                  <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-4 py-2 text-left">
                     <span className="font-fries text-2xl">Uurregeling</span>
                     <div
                       className={`${
@@ -121,7 +123,7 @@ function Info() {
             <Disclosure as="div" className="mt-6">
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-0 px-4 py-2 text-left">
+                  <Disclosure.Button className="border-orangepx-4 flex w-full items-center justify-between border-b-4 border-dotted py-2 text-left">
                     <span className="font-fries text-2xl">
                       Interessant om te weten
                     </span>

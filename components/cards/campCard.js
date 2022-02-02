@@ -1,22 +1,41 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useNextSanityImage } from 'next-sanity-image';
+import sanityClient from '@sanity/client';
+import { stringToSlug } from '../../utils/stringToSlug.util';
 
-function CampCard({
-  image,
-  title,
-  description,
-  slug,
-  borderColor,
-  buttonTextColor,
-}) {
+const configuredSanityClient = sanityClient({
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  dataset: 'production',
+  useCdn: true,
+});
+
+function CampCard({ index, name, description, image, accentColor }) {
+  const imageProps = useNextSanityImage(configuredSanityClient, image);
+
   return (
-    <div key={slug} className={`rounded-lg border-8 p-6 border-${borderColor}`}>
-      <Image src={image} alt="Zeebrugge" layout="responsive" />
-      <p className="mt-4 font-fries text-2xl">{title}</p>
+    <div
+      key={index}
+      className={`h-fit rounded-lg border-8 ${
+        accentColor ? 'border-white' : 'border-blue'
+      } p-6`}
+    >
+      {image ? (
+        <div className="relative mb-6 h-44 w-full">
+          <Image {...imageProps} layout="fill" objectFit="cover" />
+        </div>
+      ) : null}
+      <p className="font-fries text-2xl">{name}</p>
       <p>{description}</p>
-      <Link href="/">
+      <Link href={`/camps/${stringToSlug(name)}`}>
         <a
-          className={`text-fries mt-6 flex items-center justify-center rounded-sm ${buttonTextColor} py-3 font-fries text-xl bg-${borderColor} hover:opacity-60`}
+          className={`text-fries ${
+            accentColor ? 'bg-white' : 'bg-blue'
+          } mt-4 flex items-center justify-center rounded-sm py-3 font-fries text-xl ${
+            accentColor ? 'text-blue' : 'text-white'
+          } transition-all hover:-translate-y-1 hover:bg-blue-dark hover:shadow-xl ${
+            accentColor ? 'hover:bg-slate-200' : 'hover:bg-blue-dark'
+          }`}
         >
           Ontdek dit kamp
         </a>

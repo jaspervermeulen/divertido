@@ -10,6 +10,7 @@ import Layout from '../components/layout/layout';
 import Heading from '../components/heading/heading';
 
 import ProfileCard from '../components/profileCard/profileCard';
+import SEO from '../components/seo/seo';
 
 function Contact({ teamMembers }) {
   const handleSubmit = () => {
@@ -19,84 +20,16 @@ function Contact({ teamMembers }) {
 
   return (
     <>
+      <SEO title="Contact" />
       <Header />
       <Layout>
         <Heading>Contact</Heading>
-        <div className="lg:grid lg:grid-cols-2 lg:gap-6">
-          <div className="w-full">
-            <Paragraph funky={false} size="medium" className="mb-2">
-              Stuur ons een berichtje
-            </Paragraph>
-            <Formik
-              initialValues={initialContact}
-              validationSchema={ContactSchema}
-              onSubmit={handleSubmit}
-            >
-              {(formik) => {
-                const { errors, touched, isValid, dirty } = formik;
-                return (
-                  <div>
-                    <Form>
-                      <FormikInput
-                        as="input"
-                        errors={errors}
-                        touched={touched}
-                        name="name"
-                        id="name"
-                        type="text"
-                        label="Naam *"
-                        htmlFor="name"
-                      />
-                      <FormikInput
-                        as="input"
-                        errors={errors}
-                        touched={touched}
-                        name="email"
-                        id="email"
-                        type="email"
-                        label="Email *"
-                        htmlFor="email"
-                        className="mt-4 w-full"
-                      />
-                      <FormikInput
-                        as="input"
-                        errors={errors}
-                        touched={touched}
-                        name="subject"
-                        id="subject"
-                        type="text"
-                        label="Onderwerp *"
-                        htmlFor="subject"
-                        className="mt-4"
-                      />
-                      <FormikInput
-                        as="textarea"
-                        errors={errors}
-                        touched={touched}
-                        name="message"
-                        id="message"
-                        type="text"
-                        label="Bericht *"
-                        htmlFor="message"
-                        className="mt-4"
-                      />
-                      <FormikButton
-                        dirty={dirty}
-                        isValid={isValid}
-                        label="Verzend"
-                        className="mt-4"
-                      />
-                    </Form>
-                  </div>
-                );
-              }}
-            </Formik>
-          </div>
+        <div className="flex flex-col gap-12">
           <div className="">
             <Paragraph funky={false} size="medium">
               Team
             </Paragraph>
-            <div className="flex flex-col-reverse">
+            <div className="mt-2 grid grid-cols-2 gap-6">
               {teamMembers.map((teamMember, id) => (
                 <ProfileCard
                   key={id}
@@ -108,6 +41,82 @@ function Contact({ teamMembers }) {
                   phone={teamMember.gsm}
                 />
               ))}
+            </div>
+          </div>
+          <div className="">
+            <div className="w-full">
+              <Paragraph funky={false} size="medium" className="mb-2">
+                Stuur ons een berichtje
+              </Paragraph>
+              <Formik
+                initialValues={initialContact}
+                validationSchema={ContactSchema}
+                onSubmit={handleSubmit}
+              >
+                {(formik) => {
+                  const { errors, touched, isValid, dirty } = formik;
+                  return (
+                    <div>
+                      <Form>
+                        <div className="grid grid-cols-2 gap-6">
+                          <div>
+                            <FormikInput
+                              as="input"
+                              errors={errors}
+                              touched={touched}
+                              name="name"
+                              id="name"
+                              type="text"
+                              label="Naam *"
+                              htmlFor="name"
+                            />
+                            <FormikInput
+                              as="input"
+                              errors={errors}
+                              touched={touched}
+                              name="email"
+                              id="email"
+                              type="email"
+                              label="Email *"
+                              htmlFor="email"
+                              className="mt-4 w-full"
+                            />
+                            <FormikInput
+                              as="input"
+                              errors={errors}
+                              touched={touched}
+                              name="subject"
+                              id="subject"
+                              type="text"
+                              label="Onderwerp *"
+                              htmlFor="subject"
+                              className="mt-4"
+                            />
+                          </div>
+                          <div>
+                            <FormikInput
+                              as="textarea"
+                              errors={errors}
+                              touched={touched}
+                              name="message"
+                              id="message"
+                              type="text"
+                              label="Bericht *"
+                              htmlFor="message"
+                            />
+                          </div>
+                        </div>
+                        <FormikButton
+                          dirty={dirty}
+                          isValid={isValid}
+                          label="Verzend"
+                          className="mt-6"
+                        />
+                      </Form>
+                    </div>
+                  );
+                }}
+              </Formik>
             </div>
           </div>
         </div>
