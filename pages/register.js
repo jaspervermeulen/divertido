@@ -25,11 +25,6 @@ const gender = [
   { value: 'female', text: 'Meisje' },
 ];
 
-const locations = [
-  { value: 'zeebrugge-dudzele', text: 'Zeebrugge/Dudzele' },
-  { value: 'sint-kruis-brugge', text: 'Sint-Kruis Brugge' },
-];
-
 function Register({ camps }) {
   const [campOptions, setCampOptions] = useState([]);
   const [selectedCamp, setSelectedCamp] = useState();

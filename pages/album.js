@@ -1,7 +1,5 @@
-import Link from 'next/link';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
-import Heading from '../components/heading/heading';
 import Layout from '../components/layout/layout';
 import SEO from '../components/seo/seo';
 

@@ -1,4 +1,4 @@
-function formikButton({ dirty, isValid, label, className }) {
+function formikButton({ label, className }) {
   return (
     <button
       type="submit"
