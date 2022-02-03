@@ -1,5 +1,6 @@
 import { PaperClipIcon } from '@heroicons/react/outline';
 import { useEffect, useState } from 'react';
+import { Form, Formik } from 'formik';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Heading from '../components/heading/heading';
@@ -7,8 +8,13 @@ import Input from '../components/input/input';
 import Layout from '../components/layout/layout';
 import Paragraph from '../components/paragraph/paragraph';
 import SEO from '../components/seo/seo';
+import FormikInput from '../components/input/formikInput';
+import FormikButton from '../components/button/formikButton';
+import { initialRegister } from '../forms/initialValues';
+import { RegisterSchema } from '../forms/schemas';
 
 const grade = [
+  { value: '', text: 'Kies een optie', default: true },
   { value: '1ekleuter', text: '1e kleuter' },
   { value: '2ekleuter', text: '2e kleuter' },
   { value: '3ekleuter', text: '3e kleuter' },
@@ -21,6 +27,7 @@ const grade = [
 ];
 
 const gender = [
+  { value: '', text: 'Kies een optie', default: true },
   { value: 'male', text: 'Jongen' },
   { value: 'female', text: 'Meisje' },
 ];
@@ -30,6 +37,11 @@ function Register({ camps }) {
   const [selectedCamp, setSelectedCamp] = useState();
 
   const [userCamps, setUserCamps] = useState([]);
+  const [campRequired, setCampRequired] = useState('');
+
+  const [gdprImages, setGdprImages] = useState(false);
+  const [gdprData, setGdpaData] = useState(false);
+  const [gdprDataRequired, setGdprRequired] = useState('');
 
   useEffect(() => {
     setCampOptions([]);
@@ -39,6 +51,10 @@ function Register({ camps }) {
     );
   }, [camps]);
 
+  useEffect(() => {
+    setCampRequired('');
+  }, [userCamps]);
+
   function handleCheckbox(e) {
     if (userCamps.includes(e.target.value)) {
       setUserCamps(userCamps.filter((camp) => camp !== e.target.value));
@@ -46,6 +62,32 @@ function Register({ camps }) {
       // eslint-disable-next-line no-shadow
       setUserCamps((userCamps) => [...userCamps, e.target.value]);
     }
+  }
+
+  function onSubmit(values, { resetForm }) {
+    if (!gdprData) {
+      setGdprRequired('Dit veld is verplicht.');
+    }
+    if (userCamps.length === 0) {
+      setCampRequired('Gelieve minstens 1 kamp te kiezen');
+    }
+
+    values.gdprImages = gdprImages;
+    values.gdprData = gdprData;
+    values.selectedCamps = userCamps;
+    console.log(values);
+    fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    }).then((response) => {
+      if (response.status === 200) {
+        console.log('Letgooooooooo');
+      }
+    });
   }
 
   return (
@@ -80,207 +122,353 @@ function Register({ camps }) {
             </div>
           </div>
           <div className="mt-8 font-fries lg:mt-0 lg:w-2/3">
-            <div>
-              <Paragraph funky={false} size="medium">
-                Gegevens Deelnemer
-              </Paragraph>
-              <div className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
-                <Input type="text" labelText="Voornaam Deelnemer *" />
-                <Input type="text" labelText="Achternaam Deelnemer *" />
-                <Input type="date" labelText="Geboortedatum (DD/MM/JJ) *" />
-                <Input
-                  type="select"
-                  labelText="Leerjaar (Schooljaar 2021-2022) *"
-                  defaultText="Kies optie"
-                  options={grade}
-                />
-                <Input
-                  type="select"
-                  labelText="Geslacht *"
-                  defaultText="Kies optie"
-                  options={gender}
-                />
-              </div>
-            </div>
-            <div className="mt-12">
-              <Paragraph funky={false} size="medium">
-                Gegevens Ouder/Voogd
-              </Paragraph>
-              <div className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
-                <Input type="text" labelText="Voornaam Ouder/voogd *" />
-                <Input type="text" labelText="Achternaam Ouder/voogd *" />
-                <Input type="email" labelText="Email-adres Ouder/voogd *" />
-                <Input type="phone" labelText="Gsm Nummer Ouder/voogd *" />
-
-                <label className="col-span-2">
-                  <p className="font-sans text-lg font-medium">
-                    Adresregel 1 *
-                  </p>
-                  <input className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans" />
-                </label>
-                <label className="col-span-2">
-                  <p className="font-sans text-lg font-medium">
-                    Adresregel 2 (optioneel)
-                  </p>
-                  <input className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans" />
-                </label>
-                <Input type="text" labelText="Postcode *" />
-                <Input type="text" labelText="Woonplaats *" />
-              </div>
-            </div>
-            <div className="mt-12">
-              <Paragraph funky={false} size="medium">
-                Kamp
-              </Paragraph>
-
-              <div className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
-                <label>
-                  <p className="font-sans text-lg font-medium">Locatie *</p>
-                  <select
-                    name="locatie"
-                    id="locatie"
-                    className="h-11 w-full cursor-pointer appearance-none rounded-md border-2 border-blue bg-white px-3 font-sans"
-                    onChange={(e) => setSelectedCamp(e.target.value)}
-                  >
-                    <option value="" selected disabled hidden>
-                      Kies je kamplocatie
-                    </option>
-                    {campOptions.map((option, id) => (
-                      <option id={id} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <div>
-                  <p className="font-sans text-lg font-medium">Kamp *</p>
-                  {camps.map((camp, index) => (
-                    <div
-                      key={index}
-                      className={`${
-                        camp.name === selectedCamp ? 'inline' : 'hidden'
-                      }`}
-                    >
-                      {camp.dataEaster?.map((data, idx) => (
-                        <label
-                          key={idx}
-                          name={`${camp.name} - ${data.title}`}
-                          value={`${camp.name} - ${data.title}`}
-                          className={`mb-1 flex ${
-                            data.available ? null : 'cursor-pointer'
-                          } items-start gap-2`}
-                        >
-                          <input
-                            type="checkbox"
-                            name={`${camp.name} - ${data.title}`}
-                            value={`${camp.name} - ${data.title}`}
-                            className={`mt-1.5 cursor-pointer rounded border-2 border-blue ${
-                              data.available ? 'opacity-40' : null
-                            }`}
-                            disabled={!!data.available}
-                            onClick={handleCheckbox}
-                          />
-                          <p
-                            className={`${
-                              data.available ? 'line-through opacity-40' : null
-                            } font-sans text-lg font-medium`}
-                          >
-                            {data.title}
-                          </p>
-                        </label>
-                      ))}
-                      {camp.dataSummer?.map((data, idx) => (
-                        <label
-                          key={idx}
-                          name={`${camp.name} - ${data.title}`}
-                          value={`${camp.name} - ${data.title}`}
-                          className={`mb-1 flex ${
-                            data.available ? null : 'cursor-pointer'
-                          } items-start gap-2`}
-                        >
-                          <input
-                            type="checkbox"
-                            name={`${camp.name} - ${data.title}`}
-                            value={`${camp.name} - ${data.title}`}
-                            className={`mt-1.5 cursor-pointer rounded border-2 border-blue ${
-                              data.available ? 'opacity-40' : null
-                            }`}
-                            disabled={!!data.available}
-                            onClick={handleCheckbox}
-                          />
-                          <p
-                            className={`${
-                              data.available ? 'line-through opacity-40' : null
-                            } font-sans text-lg font-medium`}
-                          >
-                            {data.title}
-                          </p>
-                        </label>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-12">
-              <Paragraph funky={false} size="medium">
-                Medische fiche *
-              </Paragraph>
-
-              <p className="font-sans text-lg font-medium">
-                Hieronder kunt u de medische fiche downloaden, deze is verplicht
-                om in te vullen en mee te brengen op de eerste kampdag. Je
-                krijgt deze ook opgezonden via mail of je kan deze alvast
-                hieronder downloaden.
-              </p>
-
-              <div className="mt-3 flex w-fit items-center rounded-md bg-orange font-fries text-white transition-all hover:-translate-y-1 hover:bg-orange-dark hover:shadow-xl">
-                <a
-                  href="/files/Medische-fiche.pdf"
-                  alt="alt text"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="align-center mt-1 flex px-4 py-2 "
-                >
-                  <PaperClipIcon className="mt-0.5 h-5 w-5" />
-                  <p className="ml-0.5 text-xl">Download Medische Fiche</p>
-                </a>
-              </div>
-            </div>
-
-            <div className="mt-12">
-              <Paragraph funky={false} size="medium">
-                Gdpr
-              </Paragraph>
-
-              <label className="mt-4 flex cursor-pointer items-start gap-2">
-                <input
-                  className="mt-1 cursor-pointer rounded border-2 border-blue"
-                  type="checkbox"
-                />
-                <p className="font-sans text-lg font-medium">
-                  Ik ga ermee akkoord dat er foto’s genomen worden en deze op
-                  sociale media geplaatst worden. (optioneel)
-                </p>
-              </label>
-              <label className="mt-2 flex cursor-pointer items-start gap-2">
-                <input
-                  className="mt-1 cursor-pointer rounded border-2 border-blue"
-                  type="checkbox"
-                />
-                <p className="font-sans text-lg font-medium">
-                  Ik ga ermee akkoord dat mijn gegevens gebruikt en opgeslagen
-                  worden voor de algemene administratie. *
-                </p>
-              </label>
-            </div>
-            <button
-              type="button"
-              className="mt-12 h-12 w-full rounded-md bg-blue font-fries text-white transition-all hover:-translate-y-1 hover:bg-blue-dark hover:shadow-xl"
+            <Formik
+              initialValues={initialRegister}
+              validationSchema={RegisterSchema}
+              onSubmit={(values, { resetForm }) =>
+                onSubmit(values, { resetForm })
+              }
             >
-              Schrijf mij in
-            </button>
+              {(formik) => {
+                const { errors, touched, isValid, dirty } = formik;
+                return (
+                  <div>
+                    <Form>
+                      <div>
+                        <p className="font-fries text-2xl">
+                          Gegevens Deelnemer
+                        </p>
+                        <div className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
+                          <FormikInput
+                            as="input"
+                            errors={errors}
+                            touched={touched}
+                            name="participantFirstname"
+                            id="participantFirstname"
+                            type="text"
+                            label="Voornaam Deelnemer *"
+                            htmlFor="participantFirstname"
+                          />
+                          <FormikInput
+                            as="input"
+                            errors={errors}
+                            touched={touched}
+                            name="participantLastname"
+                            id="participantLastname"
+                            type="text"
+                            label="Achternaam Deelnemer *"
+                            htmlFor="participantLastname"
+                          />
+                          <FormikInput
+                            as="input"
+                            errors={errors}
+                            touched={touched}
+                            name="participantBirthData"
+                            id="participantBirthData"
+                            type="date"
+                            label="Geboortedatum (DD/MM/JJ) *"
+                            htmlFor="participantBirthData"
+                          />
+                          <FormikInput
+                            as="select"
+                            errors={errors}
+                            touched={touched}
+                            name="participantGrade"
+                            id="participantGrade"
+                            type="date"
+                            label="Leerjaar (Schooljaar 2021-2022) *"
+                            htmlFor="participantGrade"
+                            options={grade}
+                            defaultText="Kies optie"
+                          />
+                          <FormikInput
+                            as="select"
+                            errors={errors}
+                            touched={touched}
+                            name="participantSex"
+                            id="participantSex"
+                            type="date"
+                            label="Geslacht *"
+                            htmlFor="participantSex"
+                            options={gender}
+                            defaultText="Kies optie"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-12">
+                        <p className="font-fries text-2xl">
+                          Gegevens Ouder/Voogd
+                        </p>
+                        <div className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
+                          <FormikInput
+                            as="input"
+                            errors={errors}
+                            touched={touched}
+                            name="parentFirstname"
+                            id="parentFirstname"
+                            type="text"
+                            label="Voornaam Ouder/voogd *"
+                            htmlFor="parentFirstname"
+                          />
+                          <FormikInput
+                            as="input"
+                            errors={errors}
+                            touched={touched}
+                            name="parentLastname"
+                            id="parentLastname"
+                            type="text"
+                            label="Achternaam Ouder/voogd *"
+                            htmlFor="parentLastname"
+                          />
+                          <FormikInput
+                            as="input"
+                            errors={errors}
+                            touched={touched}
+                            name="parentEmail"
+                            id="parentEmail"
+                            type="email"
+                            label="Email-adres Ouder/voogd *"
+                            htmlFor="parentEmail"
+                          />
+                          <FormikInput
+                            as="input"
+                            errors={errors}
+                            touched={touched}
+                            name="parentPhone"
+                            id="parentPhone"
+                            type="text"
+                            label="Gsm Nummer Ouder/voogd *"
+                            htmlFor="parentPhone"
+                          />
+
+                          <div className="col-span-2">
+                            <FormikInput
+                              as="input"
+                              errors={errors}
+                              touched={touched}
+                              name="parentAdres1"
+                              id="parentAdres1"
+                              type="text"
+                              label="Adresregel 1 *"
+                              htmlFor="parentAdres1"
+                            />
+                          </div>
+                          <div className="col-span-2">
+                            <FormikInput
+                              as="input"
+                              errors={errors}
+                              touched={touched}
+                              name="parentAdres2"
+                              id="parentAdres2"
+                              type="text"
+                              label="Adresregel 2 (optioneel)"
+                              htmlFor="parentAdres2"
+                            />
+                          </div>
+                          <FormikInput
+                            as="input"
+                            errors={errors}
+                            touched={touched}
+                            name="parentPostalCode"
+                            id="parentPostalCode"
+                            type="text"
+                            label="Postcode *"
+                            htmlFor="parentPostalCode"
+                          />
+                          <FormikInput
+                            as="input"
+                            errors={errors}
+                            touched={touched}
+                            name="parentPlace"
+                            id="parentPlace"
+                            type="text"
+                            label="Woonplaats *"
+                            htmlFor="parentPlace"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-12">
+                        <Paragraph funky={false} size="medium">
+                          Kamp
+                        </Paragraph>
+                        <p className="font-sans text-red">{campRequired}</p>
+                        <div className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
+                          <label>
+                            <p className="font-sans text-lg font-medium">
+                              Locatie *
+                            </p>
+                            <select
+                              name="locatie"
+                              id="locatie"
+                              className="h-11 w-full cursor-pointer appearance-none rounded-md border-2 border-blue bg-white px-3 font-sans"
+                              onChange={(e) => setSelectedCamp(e.target.value)}
+                            >
+                              <option value="" selected disabled hidden>
+                                Kies je kamplocatie
+                              </option>
+                              {campOptions.map((option, id) => (
+                                <option id={id} value={option}>
+                                  {option}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <div>
+                            <p className="font-sans text-lg font-medium">
+                              Kamp *
+                            </p>
+
+                            {camps.map((camp, index) => (
+                              <div
+                                key={index}
+                                className={`${
+                                  camp.name === selectedCamp
+                                    ? 'inline'
+                                    : 'hidden'
+                                }`}
+                              >
+                                {camp.dataEaster?.map((data, idx) => (
+                                  <label
+                                    key={idx}
+                                    name={`${camp.name} - ${data.title}`}
+                                    value={`${camp.name} - ${data.title}`}
+                                    className={`mb-1 flex ${
+                                      data.available ? null : 'cursor-pointer'
+                                    } items-start gap-2`}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      name={`${camp.name} - ${data.title}`}
+                                      value={`${camp.name} - ${data.title}`}
+                                      className={`mt-1.5 cursor-pointer rounded border-2 border-blue ${
+                                        data.available ? 'opacity-40' : null
+                                      }`}
+                                      disabled={!!data.available}
+                                      onClick={handleCheckbox}
+                                    />
+                                    <p
+                                      className={`${
+                                        data.available
+                                          ? 'line-through opacity-40'
+                                          : null
+                                      } font-sans text-lg font-medium`}
+                                    >
+                                      {data.title}
+                                    </p>
+                                  </label>
+                                ))}
+                                {camp.dataSummer?.map((data, idx) => (
+                                  <label
+                                    key={idx}
+                                    name={`${camp.name} - ${data.title}`}
+                                    value={`${camp.name} - ${data.title}`}
+                                    className={`mb-1 flex ${
+                                      data.available ? null : 'cursor-pointer'
+                                    } items-start gap-2`}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      name={`${camp.name} - ${data.title}`}
+                                      value={`${camp.name} - ${data.title}`}
+                                      className={`mt-1.5 cursor-pointer rounded border-2 border-blue ${
+                                        data.available ? 'opacity-40' : null
+                                      }`}
+                                      disabled={!!data.available}
+                                      onClick={handleCheckbox}
+                                    />
+                                    <p
+                                      className={`${
+                                        data.available
+                                          ? 'line-through opacity-40'
+                                          : null
+                                      } font-sans text-lg font-medium`}
+                                    >
+                                      {data.title}
+                                    </p>
+                                  </label>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-12">
+                        <Paragraph funky={false} size="medium">
+                          Medische fiche *
+                        </Paragraph>
+
+                        <p className="font-sans text-lg font-medium">
+                          Hieronder kunt u de medische fiche downloaden, deze is
+                          verplicht om in te vullen en mee te brengen op de
+                          eerste kampdag. Je krijgt deze ook opgezonden via mail
+                          of je kan deze alvast hieronder downloaden.
+                        </p>
+
+                        <div className="mt-3 flex w-fit items-center rounded-md bg-orange font-fries text-white transition-all hover:-translate-y-1 hover:bg-orange-dark hover:shadow-xl">
+                          <a
+                            href="/files/Medische-fiche.pdf"
+                            alt="alt text"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="align-center mt-1 flex px-4 py-2 "
+                          >
+                            <PaperClipIcon className="mt-0.5 h-5 w-5" />
+                            <p className="ml-0.5 text-xl">
+                              Download Medische Fiche
+                            </p>
+                          </a>
+                        </div>
+                      </div>
+
+                      <div className="mt-12">
+                        <Paragraph funky={false} size="medium">
+                          Gdpr
+                        </Paragraph>
+
+                        <label className="mt-4 flex cursor-pointer items-start gap-2">
+                          <input
+                            className="mt-1 cursor-pointer rounded border-2 border-blue"
+                            type="checkbox"
+                            name="gdprPictures"
+                            value="gdprPictures"
+                            onChange={(e) => setGdprImages(e.target.checked)}
+                          />
+                          <p className="font-sans text-lg font-medium">
+                            Ik ga ermee akkoord dat er foto’s genomen worden en
+                            deze op sociale media geplaatst worden. (optioneel)
+                          </p>
+                        </label>
+                        <label className="mt-2 flex cursor-pointer items-start gap-2">
+                          <input
+                            className="mt-1 cursor-pointer rounded border-2 border-blue"
+                            type="checkbox"
+                            name="gdprData"
+                            value="gdprData"
+                            onChange={(e) => {
+                              setGdpaData(e.target.checked);
+                              setGdprRequired('');
+                            }}
+                          />
+                          <p className="font-sans text-lg font-medium">
+                            Ik ga ermee akkoord dat mijn gegevens gebruikt en
+                            opgeslagen worden voor de algemene administratie. *
+                          </p>
+                        </label>
+                        <p className="ml-6 font-sans text-red">
+                          {gdprDataRequired}
+                        </p>
+                      </div>
+                      <FormikButton
+                        dirty={dirty}
+                        isValid={isValid}
+                        label="Schrijf mij in"
+                        className="mt-12 h-12 w-full rounded-md bg-blue font-fries text-white transition-all hover:-translate-y-1 hover:bg-blue-dark hover:shadow-xl"
+                      />
+                    </Form>
+                  </div>
+                );
+              }}
+            </Formik>
           </div>
         </div>
       </Layout>

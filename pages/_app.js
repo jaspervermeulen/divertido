@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
     <div className="selection:bg-blue selection:text-white">
       <div className="flex w-full items-center justify-center overflow-hidden bg-blue">
         <p className="px-6 py-3 text-center font-fries text-white">
-          De kampen in Sint-Kruis en Dudzele zijn helemaal uitverkocht!!
+          Nieuw kamp in Sint-Kruis Brugge vanaf dit jaar!!
         </p>
       </div>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
