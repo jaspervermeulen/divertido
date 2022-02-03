@@ -14,7 +14,7 @@ function ProfileCard({
   qualification,
   location,
   phone,
-  key,
+  index,
   image,
 }) {
   const [imageUrl, setImageUrl] = useState('');
@@ -30,18 +30,18 @@ function ProfileCard({
 
   return (
     <div
-      key={key}
-      className="flex w-fit items-center gap-6 rounded-lg border-4 border-orange border-opacity-50 bg-opacity-50 px-6 py-4 transition-all hover:border-blue"
+      key={index}
+      className="flex w-full flex-col items-start gap-4 rounded-lg border-4 border-orange border-opacity-50 bg-opacity-50 px-6 py-4 transition-all hover:border-blue sm:flex-row sm:items-center sm:gap-6"
     >
       <img
         src={imageUrl}
         width={200}
         height={200}
         alt={`Portretfoto van ${name}`}
-        className="rounded-full"
+        className="w-36 rounded-full lg:w-48"
       />
 
-      <div className="ml-0 md:ml-4 lg:ml-0">
+      <div className="ml-0 w-full md:ml-4 lg:ml-0">
         <Paragraph funky={false} size="medium">
           {name}
         </Paragraph>

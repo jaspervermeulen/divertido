@@ -13,9 +13,9 @@ function Camp({ camp }) {
       <Header />
       <Layout>
         <Heading>{camp.name}</Heading>
-        <div className="flex gap-12">
-          <div className="w-2/5">
-            <p className="font-fries text-2xl">Locations</p>
+        <div className="flex flex-col-reverse md:flex-row md:gap-12">
+          <div className="mt-12 w-full md:mt-0 md:w-2/5">
+            <p className="font-fries text-2xl">Locatie's</p>
             {camp.locations ? (
               <>
                 {camp.locations.map((location, index) => (
@@ -30,7 +30,7 @@ function Camp({ camp }) {
               </>
             ) : null}
           </div>
-          <div className="w-3/5">
+          <div className="w-full md:w-3/5">
             <div>
               {camp.dataEaster ? (
                 <>

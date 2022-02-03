@@ -28,12 +28,8 @@ const gender = [
 function Register({ camps }) {
   const [campOptions, setCampOptions] = useState([]);
   const [selectedCamp, setSelectedCamp] = useState();
-  const [selectedCampData, setSelectedCampData] = useState();
 
-  useEffect(() => {
-    const result = camps.find((camp) => camp.name === selectedCamp);
-    setSelectedCampData(result);
-  }, [selectedCamp]);
+  const [userCamps, setUserCamps] = useState([]);
 
   useEffect(() => {
     setCampOptions([]);
@@ -41,7 +37,17 @@ function Register({ camps }) {
       // eslint-disable-next-line no-shadow
       setCampOptions((campOptions) => [...campOptions, camp.name])
     );
-  }, []);
+  }, [camps]);
+
+  function handleCheckbox(e) {
+    if (userCamps.includes(e.target.value)) {
+      setUserCamps(userCamps.filter((camp) => camp !== e.target.value));
+    } else {
+      // eslint-disable-next-line no-shadow
+      setUserCamps((userCamps) => [...userCamps, e.target.value]);
+    }
+  }
+
   return (
     <>
       <SEO title="Inschrijven" />
@@ -73,7 +79,7 @@ function Register({ camps }) {
               </div>
             </div>
           </div>
-          <div className="font-fries lg:w-2/3">
+          <div className="mt-8 font-fries lg:mt-0 lg:w-2/3">
             <div>
               <Paragraph funky={false} size="medium">
                 Gegevens Deelnemer
@@ -148,77 +154,71 @@ function Register({ camps }) {
                 </label>
                 <div>
                   <p className="font-sans text-lg font-medium">Kamp *</p>
-                  <div>
-                    {selectedCampData ? (
-                      <div>
-                        {selectedCampData.dataEaster
-                          ? selectedCampData.dataEaster.map((camp, index) => (
-                              <label
-                                key={index}
-                                className="mb-1 flex cursor-pointer items-start gap-2"
-                              >
-                                <input
-                                  className="mt-1.5 cursor-pointer rounded border-2 border-blue"
-                                  type="checkbox"
-                                />
-                                <p className="font-sans text-lg font-medium">
-                                  {camp.title}
-                                </p>
-                              </label>
-                            ))
-                          : null}
-                      </div>
-                    ) : (
-                      'selecteer je locatie'
-                    )}
-                    {selectedCampData ? (
-                      <div>
-                        {selectedCampData.dataSummer
-                          ? selectedCampData.dataSummer.map((camp, index) => (
-                              <label
-                                key={index}
-                                className={`mb-1 flex ${
-                                  camp.available ? null : 'cursor-pointer'
-                                } items-start gap-2`}
-                              >
-                                <input
-                                  className={`mt-1.5 cursor-pointer rounded border-2 border-blue ${
-                                    camp.available ? 'opacity-40' : null
-                                  }`}
-                                  type="checkbox"
-                                  disabled={!!camp.available}
-                                />
-                                <p
-                                  className={`${
-                                    camp.available
-                                      ? 'line-through opacity-40'
-                                      : null
-                                  } font-sans text-lg font-medium`}
-                                >
-                                  {camp.title}
-                                </p>
-                              </label>
-                            ))
-                          : null}
-                      </div>
-                    ) : (
-                      'selecteer je locatie'
-                    )}
-                    {/* {camps.map((camp, id) => (
-                      <label
-                        key={id}
-                        className="mb-1 flex cursor-pointer items-start gap-2"
-                      >
-                        <input
-                          className="mt-1.5 cursor-pointer rounded border-2 border-blue"
-                          type="checkbox"
-                        />
-                        <p className="font-sans text-lg font-medium">
-                          {camp.text}
-                        </p>
-                      </label>
-                    ))} */}
-                  </div>
+                  {camps.map((camp, index) => (
+                    <div
+                      key={index}
+                      className={`${
+                        camp.name === selectedCamp ? 'inline' : 'hidden'
+                      }`}
+                    >
+                      {camp.dataEaster?.map((data, idx) => (
+                        <label
+                          key={idx}
+                          name={`${camp.name} - ${data.title}`}
+                          value={`${camp.name} - ${data.title}`}
+                          className={`mb-1 flex ${
+                            data.available ? null : 'cursor-pointer'
+                          } items-start gap-2`}
+                        >
+                          <input
+                            type="checkbox"
+                            name={`${camp.name} - ${data.title}`}
+                            value={`${camp.name} - ${data.title}`}
+                            className={`mt-1.5 cursor-pointer rounded border-2 border-blue ${
+                              data.available ? 'opacity-40' : null
+                            }`}
+                            disabled={!!data.available}
+                            onClick={handleCheckbox}
+                          />
+                          <p
+                            className={`${
+                              data.available ? 'line-through opacity-40' : null
+                            } font-sans text-lg font-medium`}
+                          >
+                            {data.title}
+                          </p>
+                        </label>
+                      ))}
+                      {camp.dataSummer?.map((data, idx) => (
+                        <label
+                          key={idx}
+                          name={`${camp.name} - ${data.title}`}
+                          value={`${camp.name} - ${data.title}`}
+                          className={`mb-1 flex ${
+                            data.available ? null : 'cursor-pointer'
+                          } items-start gap-2`}
+                        >
+                          <input
+                            type="checkbox"
+                            name={`${camp.name} - ${data.title}`}
+                            value={`${camp.name} - ${data.title}`}
+                            className={`mt-1.5 cursor-pointer rounded border-2 border-blue ${
+                              data.available ? 'opacity-40' : null
+                            }`}
+                            disabled={!!data.available}
+                            onClick={handleCheckbox}
+                          />
+                          <p
+                            className={`${
+                              data.available ? 'line-through opacity-40' : null
+                            } font-sans text-lg font-medium`}
+                          >
+                            {data.title}
+                          </p>
+                        </label>
+                      ))}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

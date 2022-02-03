@@ -14,7 +14,7 @@ function Info() {
       <Layout>
         <Heading>Info/Prijzen</Heading>
         <div className="flex flex-col-reverse gap-8 md:flex-row">
-          <div className="md:w-2/5 lg:w-3/5">
+          <div className="mt-8 md:mt-0 md:w-2/5 lg:w-3/5">
             <Disclosure>
               {({ open }) => (
                 <>
