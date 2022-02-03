@@ -4,7 +4,6 @@ import { Form, Formik } from 'formik';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Heading from '../components/heading/heading';
-import Input from '../components/input/input';
 import Layout from '../components/layout/layout';
 import Paragraph from '../components/paragraph/paragraph';
 import SEO from '../components/seo/seo';
@@ -75,7 +74,6 @@ function Register({ camps }) {
     values.gdprImages = gdprImages;
     values.gdprData = gdprData;
     values.selectedCamps = userCamps;
-    console.log(values);
     fetch('/api/register', {
       method: 'POST',
       headers: {
@@ -83,11 +81,7 @@ function Register({ camps }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(values),
-    }).then((response) => {
-      if (response.status === 200) {
-        console.log('Letgooooooooo');
-      }
-    });
+    }).then((response) => {});
   }
 
   return (

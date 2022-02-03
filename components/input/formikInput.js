@@ -11,7 +11,6 @@ function formikInput({
   htmlFor,
   className,
   options,
-  defaultText,
 }) {
   return (
     <div className={`form-row ${className} font-sans`}>
