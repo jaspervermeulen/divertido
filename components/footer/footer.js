@@ -23,10 +23,10 @@ function Footer() {
   return (
     <div className="mt-16 bg-orange text-white sm:py-16">
       <div className="mx-auto max-w-screen-xl px-3 sm:px-6 md:px-12 lg:px-16">
-        <div className="flex items-center justify-center sm:justify-between">
+        <div className="mb-4 flex items-center justify-center sm:justify-between">
           <Link href="/">
             <div className="cursor-pointer transition-all hover:rotate-3 hover:scale-110">
-              <Image src={Logo} width={208} layout="fixed" />
+              <Image src={Logo} width={208} height={50} layout="fixed" />
             </div>
           </Link>
           <button

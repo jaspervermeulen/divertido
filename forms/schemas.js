@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const ContactSchema = Yup.object().shape({
   name: Yup.string().required('Gelieve je naam in te geven'),
   email: Yup.string()
-    .email('Dit mailadres is niet geldig')
+    .email('Dit is geen geldig email adres')
     .required('Gelieve een mailadres in te geven'),
   subject: Yup.string().required('Gelieve een onderwerp in te geven'),
   message: Yup.string().required('Gelieve een berichtje in te geven'),
@@ -24,7 +24,7 @@ export const RegisterSchema = Yup.object().shape({
   parentFirstname: Yup.string().required('Gelieve je voornaam in te geven'),
   parentLastname: Yup.string().required('Gelieve je achternaam in te geven'),
   parentEmail: Yup.string()
-    .email('Dit mailadres is niet geldig')
+    .email('Dit is geen geldig email adres')
     .required('Gelieve je email in te geven'),
   parentPhone: Yup.string().required('Gelieve je gsm-nummer in te geven'),
   parentAdres1: Yup.string().required('Gelieve je adres in te geven'),

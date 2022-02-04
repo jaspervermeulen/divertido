@@ -14,21 +14,21 @@ import { RegisterSchema } from '../forms/schemas';
 
 const grade = [
   { value: '', text: 'Kies een optie', default: true },
-  { value: '1ekleuter', text: '1e kleuter' },
-  { value: '2ekleuter', text: '2e kleuter' },
-  { value: '3ekleuter', text: '3e kleuter' },
-  { value: '1eleerjaar', text: '1e leerjaar' },
-  { value: '2eleerjaar', text: '2e leerjaar' },
-  { value: '3eleerjaar', text: '3e leerjaar' },
-  { value: '4eleerjaar', text: '4e leerjaar' },
-  { value: '5eleerjaar', text: '5e leerjaar' },
-  { value: '6eleerjaar', text: '6e leerjaar' },
+  { value: '1e kleuter', text: '1e kleuter' },
+  { value: '2e kleuter', text: '2e kleuter' },
+  { value: '3e kleuter', text: '3e kleuter' },
+  { value: '1e leerjaar', text: '1e leerjaar' },
+  { value: '2e leerjaar', text: '2e leerjaar' },
+  { value: '3e leerjaar', text: '3e leerjaar' },
+  { value: '4e leerjaar', text: '4e leerjaar' },
+  { value: '5e leerjaar', text: '5e leerjaar' },
+  { value: '6e leerjaar', text: '6e leerjaar' },
 ];
 
 const gender = [
   { value: '', text: 'Kies een optie', default: true },
-  { value: 'male', text: 'Jongen' },
-  { value: 'female', text: 'Meisje' },
+  { value: 'Jongen', text: 'Jongen' },
+  { value: 'Meisje', text: 'Meisje' },
 ];
 
 function Register({ camps }) {
@@ -81,7 +81,10 @@ function Register({ camps }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(values),
-    }).then((response) => {});
+    }).then((response) => {
+      // eslint-disable-next-line no-console
+      console.log(response);
+    });
   }
 
   return (
@@ -311,6 +314,12 @@ function Register({ camps }) {
                             <p className="font-sans text-lg font-medium">
                               Kamp *
                             </p>
+
+                            {!selectedCamp && (
+                              <p className="mt-2 font-sans opacity-60">
+                                Selecteer eerst je kamp locatie!
+                              </p>
+                            )}
 
                             {camps.map((camp, index) => (
                               <div

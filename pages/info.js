@@ -13,7 +13,7 @@ function Info() {
       <Header />
       <Layout>
         <Heading>Info/Prijzen</Heading>
-        <div className="flex flex-col-reverse gap-8 md:flex-row">
+        <div className="flex flex-col-reverse md:flex-row md:gap-8">
           <div className="mt-8 md:mt-0 md:w-2/5 lg:w-3/5">
             <Disclosure>
               {({ open }) => (
@@ -158,7 +158,7 @@ function Info() {
               )}
             </Disclosure>
           </div>
-          <div className="rounded-md border-8 border-blue p-8 font-fries md:w-3/5 lg:w-2/5">
+          <div className="h-fit rounded-md border-8 border-blue p-8 font-fries md:w-3/5 lg:w-2/5">
             <div>
               <p className="text-5xl underline decoration-orange decoration-dotted decoration-4 underline-offset-8">
                 Prijs

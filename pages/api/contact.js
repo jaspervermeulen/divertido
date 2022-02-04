@@ -7,7 +7,8 @@ export default function (req, res) {
 
   const transporter = nodemailer.createTransport({
     port: 465,
-    host: 'smtp.gmail.com',
+    // host: 'smtp.gmail.com',
+    service: 'Gmail',
     auth: {
       user: 'divertidomailservice@gmail.com',
       pass: process.env.NEXT_PUBLIC_MAIL_PW,
