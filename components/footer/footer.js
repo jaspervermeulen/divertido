@@ -91,7 +91,7 @@ function Footer() {
             <p className="mb-2 font-fries text-xl">Sociale media</p>
             <ul>
               <li className="mb-2 flex cursor-pointer hover:opacity-60">
-                <Link href="/">
+                <Link href="https://www.facebook.com/Divertidokampen">
                   <>
                     <Image
                       src={FacebookIcon}
@@ -104,7 +104,7 @@ function Footer() {
                 </Link>
               </li>
               <li className="mb-2 flex cursor-pointer hover:opacity-60">
-                <Link href="/">
+                <Link href="https://www.instagram.com/divertidokampen/">
                   <>
                     <Image
                       src={InstagramIcon}

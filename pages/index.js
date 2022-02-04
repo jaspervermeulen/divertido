@@ -28,19 +28,19 @@ function Home({ camps }) {
           <div className="flex flex-col items-center justify-center">
             <p className="text-center font-fries text-3xl sm:w-2/3 lg:text-5xl">
               Op zoek naar een funtastisch kamp in{' '}
-              <Link href="/">
+              <Link href="/camps/zeebrugge">
                 <a className="text-blue transition-all hover:text-orange">
                   Zeebrugge
                 </a>
               </Link>
               ,{' '}
-              <Link href="/">
+              <Link href="/camps/dudzele">
                 <a className="text-blue transition-all hover:text-orange">
                   Dudzele
                 </a>
               </Link>{' '}
               of{' '}
-              <Link href="/">
+              <Link href="/camps/sint-kruis-brugge">
                 <a className="text-blue hover:text-orange">Sint-Kruis Brugge</a>
               </Link>
               ?
