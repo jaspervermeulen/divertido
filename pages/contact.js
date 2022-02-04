@@ -6,6 +6,7 @@ import {
   CreditCardIcon,
   MailIcon,
   PhoneIcon,
+  RefreshIcon,
 } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Footer from '../components/footer/footer';
@@ -25,8 +26,10 @@ import TogetherLogo from '../assets/logo/logo-background-orange.png';
 
 function Contact({ teamMembers }) {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function onSubmit(values, { resetForm }) {
+    setLoading(true);
     fetch('/api/contact', {
       method: 'POST',
       headers: {
@@ -36,6 +39,7 @@ function Contact({ teamMembers }) {
       body: JSON.stringify(values),
     }).then((response) => {
       if (response.status === 200) {
+        setLoading(false);
         resetForm({});
         setSubmitted(true);
       }
@@ -72,83 +76,90 @@ function Contact({ teamMembers }) {
               <p className="mb-2 font-fries text-2xl">
                 Stuur ons een berichtje
               </p>
-              {submitted ? (
+              <div className={`${loading ? null : 'hidden'}`}>
                 <div className="flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
-                  <CheckCircleIcon className="mb-1 h-5 w-5" />
-                  <p className="ml-1.5">Het berichtje is verzonden!</p>
+                  <RefreshIcon className="h-8 w-8 animate-spin" />
                 </div>
-              ) : (
-                <Formik
-                  initialValues={initialContact}
-                  validationSchema={ContactSchema}
-                  onSubmit={(values, { resetForm }) =>
-                    onSubmit(values, { resetForm })
-                  }
-                >
-                  {(formik) => {
-                    const { errors, touched, isValid, dirty } = formik;
-                    return (
-                      <div>
-                        <Form>
-                          <div>
-                            <FormikInput
-                              as="input"
-                              errors={errors}
-                              touched={touched}
-                              name="name"
-                              id="name"
-                              type="text"
-                              label="Naam *"
-                              htmlFor="name"
+              </div>
+              <div className={`${loading ? 'hidden' : null}`}>
+                {submitted ? (
+                  <div className="flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
+                    <CheckCircleIcon className="mb-1 h-5 w-5" />
+                    <p className="ml-1.5">Het berichtje is verzonden!</p>
+                  </div>
+                ) : (
+                  <Formik
+                    initialValues={initialContact}
+                    validationSchema={ContactSchema}
+                    onSubmit={(values, { resetForm }) =>
+                      onSubmit(values, { resetForm })
+                    }
+                  >
+                    {(formik) => {
+                      const { errors, touched, isValid, dirty } = formik;
+                      return (
+                        <div>
+                          <Form>
+                            <div>
+                              <FormikInput
+                                as="input"
+                                errors={errors}
+                                touched={touched}
+                                name="name"
+                                id="name"
+                                type="text"
+                                label="Naam *"
+                                htmlFor="name"
+                              />
+                              <FormikInput
+                                as="input"
+                                errors={errors}
+                                touched={touched}
+                                name="email"
+                                id="email"
+                                type="email"
+                                label="Email *"
+                                htmlFor="email"
+                                className="mt-4 w-full"
+                              />
+                              <FormikInput
+                                as="input"
+                                errors={errors}
+                                touched={touched}
+                                name="subject"
+                                id="subject"
+                                type="text"
+                                label="Onderwerp *"
+                                htmlFor="subject"
+                                className="mt-4"
+                              />
+                            </div>
+                            <div>
+                              <FormikInput
+                                as="textarea"
+                                errors={errors}
+                                touched={touched}
+                                name="message"
+                                id="message"
+                                type="text"
+                                label="Bericht *"
+                                htmlFor="message"
+                                className="mt-4"
+                              />
+                            </div>
+                            <FormikButton
+                              dirty={dirty}
+                              isValid={isValid}
+                              label="Verzend"
+                              className="mt-6 bg-blue transition-all hover:-translate-y-1 hover:bg-blue-dark hover:shadow-xl"
                             />
-                            <FormikInput
-                              as="input"
-                              errors={errors}
-                              touched={touched}
-                              name="email"
-                              id="email"
-                              type="email"
-                              label="Email *"
-                              htmlFor="email"
-                              className="mt-4 w-full"
-                            />
-                            <FormikInput
-                              as="input"
-                              errors={errors}
-                              touched={touched}
-                              name="subject"
-                              id="subject"
-                              type="text"
-                              label="Onderwerp *"
-                              htmlFor="subject"
-                              className="mt-4"
-                            />
-                          </div>
-                          <div>
-                            <FormikInput
-                              as="textarea"
-                              errors={errors}
-                              touched={touched}
-                              name="message"
-                              id="message"
-                              type="text"
-                              label="Bericht *"
-                              htmlFor="message"
-                              className="mt-4"
-                            />
-                          </div>
-                          <FormikButton
-                            dirty={dirty}
-                            isValid={isValid}
-                            label="Verzend"
-                            className="mt-6 bg-blue transition-all hover:-translate-y-1 hover:bg-blue-dark hover:shadow-xl"
-                          />
-                        </Form>
-                      </div>
-                    );
-                  }}
-                </Formik>
-              )}
+                          </Form>
+                        </div>
+                      );
+                    }}
+                  </Formik>
+                )}
+              </div>
             </div>
             <div className="mb-12 lg:mb-0 lg:w-1/2">
               <p className="mb-2 font-fries text-2xl">Bedrijfdetails</p>
