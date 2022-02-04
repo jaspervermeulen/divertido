@@ -1,19 +1,31 @@
 /* eslint-disable no-console */
 /* eslint-disable global-require */
-export default function (req, res) {
+export default async function (req, res) {
   require('dotenv').config();
 
   const nodemailer = require('nodemailer');
 
   const transporter = nodemailer.createTransport({
-    port: 80,
-    // host: 'smtp.gmail.com',
-    service: 'Gmail',
+    port: 465,
+    host: 'smtp.gmail.com',
     auth: {
       user: 'divertidomailservice@gmail.com',
       pass: process.env.NEXT_PUBLIC_MAIL_PW,
     },
     secure: true,
+  });
+
+  await new Promise((resolve, reject) => {
+    // verify connection configuration
+    transporter.verify((error, success) => {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log('Server is ready to take our messages');
+        resolve(success);
+      }
+    });
   });
 
   const mailData = {
@@ -97,10 +109,23 @@ export default function (req, res) {
     `,
   };
 
-  transporter.sendMail(mailData, (err, info) => {
-    if (err) console.log(err);
-    else console.log(info);
+  await new Promise((resolve, reject) => {
+    // send mail
+    transporter.sendMail(mailData, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve(info);
+      }
+    });
   });
+
+  // transporter.sendMail(mailData, (err, info) => {
+  //   if (err) console.log(err);
+  //   else console.log(info);
+  // });
 
   res.status('200').send();
 }
