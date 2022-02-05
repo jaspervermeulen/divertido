@@ -11,7 +11,6 @@ import {
 import Image from 'next/image';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
-import Paragraph from '../components/paragraph/paragraph';
 import { initialContact } from '../forms/initialValues';
 import { ContactSchema } from '../forms/schemas';
 import FormikInput from '../components/input/formikInput';
@@ -54,12 +53,11 @@ function Contact({ teamMembers }) {
         <Heading>Contact</Heading>
         <div className="flex flex-col gap-12">
           <div className="">
-            <Paragraph funky={false} size="medium">
-              Team
-            </Paragraph>
+            <p className="font-fries text-2xl">Team</p>
             <div className="mt-2 grid grid-cols-1 gap-6 lg:grid-cols-2">
               {teamMembers.map((teamMember, id) => (
                 <ProfileCard
+                  key={id}
                   index={id}
                   image={teamMember.img}
                   name={teamMember.name}
@@ -168,9 +166,8 @@ function Contact({ teamMembers }) {
                   <Image
                     src={TogetherLogo}
                     alt="Logo"
-                    width={200}
-                    height={180}
                     layout="fill"
+                    placeholder="blur"
                   />
                 </div>
 

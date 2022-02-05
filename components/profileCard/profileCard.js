@@ -6,7 +6,6 @@ import {
 } from '@heroicons/react/outline';
 import { useEffect, useState } from 'react';
 import ImageUrlBuilder from '@sanity/image-url';
-import Paragraph from '../paragraph/paragraph';
 
 function ProfileCard({
   name,
@@ -40,11 +39,8 @@ function ProfileCard({
         alt={`Portretfoto van ${name}`}
         className="w-36 rounded-full lg:w-48"
       />
-
       <div className="ml-0 w-full md:ml-4 lg:ml-0">
-        <Paragraph funky={false} size="medium">
-          {name}
-        </Paragraph>
+        <p className="font-fries text-2xl">{name}</p>
         <ul>
           <li className="mt-3 flex items-start">
             <AcademicCapIcon className="mt-0.5 h-5 w-5" />

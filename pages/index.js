@@ -6,6 +6,7 @@ import {
   AcademicCapIcon,
   BadgeCheckIcon,
 } from '@heroicons/react/outline';
+import { useEffect } from 'react';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
 
@@ -17,6 +18,7 @@ import { games } from '../data/games';
 import Layout from '../components/layout/layout';
 import SEO from '../components/seo/seo';
 import CampCard from '../components/cards/campCard';
+import Paragraph from '../components/paragraph/paragraph';
 
 function Home({ camps }) {
   return (
@@ -28,20 +30,22 @@ function Home({ camps }) {
           <div className="flex flex-col items-center justify-center">
             <p className="text-center font-fries text-3xl sm:w-2/3 lg:text-5xl">
               Op zoek naar een funtastisch kamp in{' '}
-              <Link href="/camps/zeebrugge">
-                <a className="text-blue transition-all hover:text-orange">
+              <Link href="/camps/zeebrugge" passHref>
+                <span className="cursor-pointer text-blue transition-all hover:text-orange">
                   Zeebrugge
-                </a>
+                </span>
               </Link>
               ,{' '}
-              <Link href="/camps/dudzele">
-                <a className="text-blue transition-all hover:text-orange">
+              <Link href="/camps/dudzele" passHref>
+                <span className="cursor-pointer text-blue transition-all hover:text-orange">
                   Dudzele
-                </a>
+                </span>
               </Link>{' '}
               of{' '}
-              <Link href="/camps/sint-kruis-brugge">
-                <a className="text-blue hover:text-orange">Sint-Kruis Brugge</a>
+              <Link href="/camps/sint-kruis-brugge" passHref>
+                <span className="cursor-pointer text-blue hover:text-orange">
+                  Sint-Kruis Brugge
+                </span>
               </Link>
               ?
             </p>
@@ -57,6 +61,7 @@ function Home({ camps }) {
                 width={268}
                 height={268}
                 layout="fixed"
+                placeholder="blur"
               />
             </div>
             <div className="snap-center">
@@ -66,6 +71,7 @@ function Home({ camps }) {
                 width={268}
                 height={268}
                 layout="fixed"
+                placeholder="blur"
               />
             </div>
             <div className="snap-center">
@@ -75,6 +81,7 @@ function Home({ camps }) {
                 width={268}
                 height={268}
                 layout="fixed"
+                placeholder="blur"
               />
             </div>
             <div className="snap-center">
@@ -84,6 +91,7 @@ function Home({ camps }) {
                 width={268}
                 height={268}
                 layout="fixed"
+                placeholder="blur"
               />
             </div>
           </div>
@@ -95,7 +103,9 @@ function Home({ camps }) {
                 key={id}
                 className="rounded-full bg-orange p-2 hover:rotate-2 hover:scale-110"
               >
-                {game}
+                <Paragraph size="sm" type="fries">
+                  {game}
+                </Paragraph>
               </li>
             ))}
           </ul>
@@ -109,20 +119,8 @@ function Home({ camps }) {
             </div>
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {camps.map((camp, index) => (
-                // <div
-                //   key={index}
-                //   className="rounded-lg border-8 border-white p-6"
-                // >
-                //   {/* <Image src={camp.image} alt="Zeebrugge" layout="responsive" /> */}
-                //   <p className="font-fries text-2xl">{camp.name}</p>
-                //   <p>{camp.description}</p>
-                //   <Link href={`/camps/${stringToSlug(camp.name)}`}>
-                //     <a className="text-fries mt-6 flex items-center justify-center rounded-sm bg-white py-3 font-fries text-xl text-blue transition-all hover:-translate-y-1 hover:shadow-xl">
-                //       Ontdek dit kamp
-                //     </a>
-                //   </Link>
-                // </div>
                 <CampCard
+                  key={index}
                   index={index}
                   name={camp.name}
                   description={camp.description}
@@ -234,9 +232,10 @@ function Home({ camps }) {
 }
 
 export const getServerSideProps = async () => {
-  const query = `*[ _type == "camp" ]`;
-  const url = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${query}`;
-  const camps = await fetch(url).then((res) => res.json());
+  const queryCamps = `*[ _type == "camp" ]`;
+  const campsUrl = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${queryCamps}`;
+  const camps = await fetch(campsUrl).then((res) => res.json());
+
   return {
     props: { camps: camps.result },
   };

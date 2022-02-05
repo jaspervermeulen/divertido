@@ -16,6 +16,7 @@ function Camp({ camps }) {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {camps.result.map((camp, index) => (
               <CampCard
+                key={index}
                 index={index}
                 name={camp.name}
                 description={camp.description}

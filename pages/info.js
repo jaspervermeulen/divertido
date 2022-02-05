@@ -4,6 +4,7 @@ import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Heading from '../components/heading/heading';
 import Layout from '../components/layout/layout';
+import Paragraph from '../components/paragraph/paragraph';
 import SEO from '../components/seo/seo';
 
 function Info() {
@@ -19,7 +20,9 @@ function Info() {
               {({ open }) => (
                 <>
                   <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange  px-4 py-2 text-left">
-                    <span className="font-fries text-2xl">Voor wie?</span>
+                    <Paragraph size="lg" type="fries">
+                      Voor wie?
+                    </Paragraph>
                     <div
                       className={`${
                         open ? '' : 'rotate-180 transform'
@@ -67,9 +70,9 @@ function Info() {
               {({ open }) => (
                 <>
                   <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-4 py-2 text-left">
-                    <span className="font-fries text-2xl">
+                    <Paragraph size="lg" type="fries">
                       Wat neem ik mee?
-                    </span>
+                    </Paragraph>
                     <div
                       className={`${
                         open ? '' : 'rotate-180 transform'
@@ -93,7 +96,9 @@ function Info() {
               {({ open }) => (
                 <>
                   <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-4 py-2 text-left">
-                    <span className="font-fries text-2xl">Uurregeling</span>
+                    <Paragraph size="lg" type="fries">
+                      Uurregeling
+                    </Paragraph>
                     <div
                       className={`${
                         open ? '' : 'rotate-180 transform'
@@ -124,9 +129,9 @@ function Info() {
               {({ open }) => (
                 <>
                   <Disclosure.Button className="flex w-full items-center justify-between border-b-4 border-dotted border-orange px-4 py-2 text-left">
-                    <span className="font-fries text-2xl">
+                    <Paragraph size="lg" type="fries">
                       Interessant om te weten
-                    </span>
+                    </Paragraph>
                     <div
                       className={`${
                         open ? '' : 'rotate-180 transform'

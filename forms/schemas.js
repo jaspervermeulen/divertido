@@ -31,4 +31,5 @@ export const RegisterSchema = Yup.object().shape({
   parentAdres2: Yup.string(),
   parentPostalCode: Yup.string().required('Gelieve je postcode in te geven'),
   parentPlace: Yup.string().required('Gelieve je woonplaats in te geven'),
+  notes: Yup.string(),
 });

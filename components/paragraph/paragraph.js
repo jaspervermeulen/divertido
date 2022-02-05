@@ -1,20 +1,16 @@
-/* eslint-disable no-nested-ternary */
-function Paragraph({ children, funky = true, size, className }) {
-  return (
-    <p
-      className={`${
-        size === 'base'
-          ? 'text-lg'
-          : size === 'medium'
-          ? 'text-2xl'
-          : size === 'large'
-          ? 'text-4xl'
-          : 'text-md'
-      } ${funky ? 'font-sans' : 'font-fries'} ${className}`}
-    >
-      {children}
-    </p>
-  );
+function Paragraph({ children, size, color, type }) {
+  if (size === 'xl') {
+    return <p className={`text-4xl text-${color} font-${type}`}>{children}</p>;
+  }
+  if (size === 'lg') {
+    return <p className={`text-2xl text-${color} font-${type}`}>{children}</p>;
+  }
+  if (size === 'md') {
+    return <p className={`text-xl text-${color} font-${type}`}>{children}</p>;
+  }
+  if (size === 'sm') {
+    return <p className={`text-lg text-${color} font-${type}`}>{children}</p>;
+  }
 }
 
 export default Paragraph;

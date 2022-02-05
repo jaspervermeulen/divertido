@@ -159,6 +159,21 @@ export default async function (req, res) {
           </div>
         </td>
       </tr>
+     <tr>
+        <td colspan="2">
+          <div style="margin: 0px; padding: 0px; padding-top: 24px; padding-bottom: 6px;">
+            <p style="font-size: 16px; font-weight: 600; margin: 0px; padding: 0px">Extra opmerkingen</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="margin: 0px; padding: 0px">
+          <p style="margin: 0px; padding: 0px; padding-bottom: 4px; font-size:13px; text-transform: uppercase; font-weight: 900;opacity: 0.7">Extra opmerkingen:</p>
+          <p style="border: solid; margin-top: 2px; margin-right: 12px; border-color: #539AD160; border-radius: 4px; margin: 0px; padding: 5px; font-size:15px">${
+            req.body.notes
+          }</p>
+        </td>
+      </tr>
       <tr>
         <td colspan="2">
           <div style="margin: 0px; padding: 0px; padding-top: 24px; padding-bottom: 6px;">
@@ -184,7 +199,7 @@ export default async function (req, res) {
       </tr>
       <tr>
         <td style="margin: 0px; padding: 0px">
-          <div style="padding-top: 12px">
+          <div>
             <p style="margin: 0px; padding: 0px; padding-bottom: 4px; font-size:13px; text-transform: uppercase; font-weight: 900;opacity: 0.7">Foto's:</p>
             <p style="border: solid; margin-top: 2px; margin-right: 12px; border-color: #539AD160; border-radius: 4px; margin: 0px; padding: 5px; font-size:15px">${
               req.body.gdprImages
@@ -192,7 +207,7 @@ export default async function (req, res) {
           </div>
         </td>
         <td style="margin: 0px; padding: 0px; padding-left: 6px">
-          <div style="padding-top: 12px">
+          <div>
             <p style="margin: 0px; padding: 0px; padding-bottom: 4px; font-size:13px; text-transform: uppercase; font-weight: 900;opacity: 0.7">Gegevens:</p>
             <p style="border: solid; margin-top: 2px; margin-right: 12px; border-color: #539AD160; border-radius: 4px; margin: 0px; padding: 5px; font-size:15px">${
               req.body.gdprData

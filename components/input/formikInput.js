@@ -30,9 +30,10 @@ function formikInput({
       >
         {options?.map((option, idx) => (
           <option
+            key={idx}
             id={idx}
             value={option.value}
-            selected={option.default}
+            defaultValue={option.default}
             disabled={option.default}
           >
             {option.text}

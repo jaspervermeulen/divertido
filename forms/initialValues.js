@@ -20,4 +20,5 @@ export const initialRegister = {
   parentAdres2: '',
   parentPostalCode: '',
   parentPlace: '',
+  notes: '',
 };

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useNextSanityImage } from 'next-sanity-image';
 import sanityClient from '@sanity/client';
 import { stringToSlug } from '../../utils/stringToSlug.util';
+import Paragraph from '../paragraph/paragraph';
 
 const configuredSanityClient = sanityClient({
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
@@ -26,11 +27,13 @@ function CampCard({ index, name, description, image, accentColor }) {
           <Image {...imageProps} layout="fill" objectFit="cover" />
         </div>
       ) : null}
-      <p className="font-fries text-2xl">{name}</p>
+      <Paragraph size="lg" type="fries">
+        {name}
+      </Paragraph>
       <p>{description}</p>
-      <Link href={`/camps/${stringToSlug(name)}`}>
-        <a
-          className={`text-fries ${
+      <Link href={`/camps/${stringToSlug(name)}`} passHref>
+        <span
+          className={`text-fries cursor-pointer ${
             accentColor ? 'bg-white' : 'bg-blue'
           } mt-4 flex items-center justify-center rounded-sm py-3 font-fries text-xl ${
             accentColor ? 'text-blue' : 'text-white'
@@ -39,7 +42,7 @@ function CampCard({ index, name, description, image, accentColor }) {
           }`}
         >
           Ontdek dit kamp
-        </a>
+        </span>
       </Link>
     </div>
   );

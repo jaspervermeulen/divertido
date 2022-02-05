@@ -2,7 +2,6 @@ import {
   CheckCircleIcon,
   PaperClipIcon,
   RefreshIcon,
-  XIcon,
 } from '@heroicons/react/outline';
 import { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
@@ -11,7 +10,6 @@ import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Heading from '../components/heading/heading';
 import Layout from '../components/layout/layout';
-import Paragraph from '../components/paragraph/paragraph';
 import SEO from '../components/seo/seo';
 import FormikInput from '../components/input/formikInput';
 import FormikButton from '../components/button/formikButton';
@@ -96,6 +94,10 @@ function Register({ camps }) {
       values.parentAdres2 = '/';
     }
 
+    if (values.notes === '') {
+      values.notes = '/';
+    }
+
     values.gdprImages = gdprImages ? 'Akkoord' : 'Niet akkoord';
     values.gdprData = gdprData ? 'Akkoord' : 'Niet akkoord';
     values.selectedCamps = userCamps;
@@ -127,22 +129,22 @@ function Register({ camps }) {
             <div className="h-full">
               <div className="sticky top-20">
                 <div className="rounded-md border-8 border-orange p-4">
-                  <Paragraph funky={false} size="medium">
+                  <p className="font-fries text-2xl">
                     !! Schrijf snel in. Plaatsen zijn beperkt !!
-                  </Paragraph>
-                  <Paragraph size="base" className="mt-3">
+                  </p>
+                  <p className="font-sans text-lg">
                     Vul alle gegevens correct in en druk op verzend. Jullie
                     ontvangen nadien een email terug van ons met alle gegevens
                     om het inschrijvingsgeld te betalen.{' '}
                     <span className="underline">
                       Pas na betaling is de inschrijving definitief!
                     </span>
-                  </Paragraph>
-                  <Paragraph size="base" className="mt-3">
+                  </p>
+                  <p className="mt-2 font-sans text-lg">
                     Ook de medische fiche is een verplichting om in te vullen en
                     mee te brengen op de eerste kampdag. Dit krijg je ook
                     opgezonden in onze mail of kan je hieronder downloaden.
-                  </Paragraph>
+                  </p>
                 </div>
               </div>
             </div>
@@ -333,9 +335,26 @@ function Register({ camps }) {
                             </div>
                           </div>
                           <div className="mt-12">
-                            <Paragraph funky={false} size="medium">
-                              Kamp
-                            </Paragraph>
+                            <p className="font-fries text-2xl">
+                              Extra info/opmerkingen
+                            </p>
+                            <div className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
+                              <div className="col-span-2">
+                                <FormikInput
+                                  as="textarea"
+                                  errors={errors}
+                                  touched={touched}
+                                  name="notes"
+                                  id="notes"
+                                  type="text"
+                                  label="Opmerkingen die we moeten weten (optioneel)"
+                                  htmlFor="notes"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-12">
+                            <p className="font-fries text-2xl">Kamp</p>
                             <p className="font-sans text-red">{campRequired}</p>
                             <div className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-5">
                               <label>
@@ -350,11 +369,11 @@ function Register({ camps }) {
                                     setSelectedCamp(e.target.value)
                                   }
                                 >
-                                  <option value="" selected disabled hidden>
+                                  <option value="" defaultValue disabled hidden>
                                     Kies je kamplocatie
                                   </option>
                                   {campOptions.map((option, id) => (
-                                    <option id={id} value={option}>
+                                    <option key={id} id={id} value={option}>
                                       {option}
                                     </option>
                                   ))}
@@ -450,9 +469,9 @@ function Register({ camps }) {
                             </div>
                           </div>
                           <div className="mt-12">
-                            <Paragraph funky={false} size="medium">
+                            <p className="font-fries text-2xl">
                               Medische fiche *
-                            </Paragraph>
+                            </p>
 
                             <p className="font-sans text-lg font-medium">
                               Hieronder kunt u de medische fiche downloaden,
@@ -479,9 +498,7 @@ function Register({ camps }) {
                           </div>
 
                           <div className="mt-12">
-                            <Paragraph funky={false} size="medium">
-                              Gdpr
-                            </Paragraph>
+                            <p className="font-fries text-2xl">Gdpr</p>
 
                             <label className="mt-4 flex cursor-pointer items-start gap-2">
                               <input
