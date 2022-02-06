@@ -1,15 +1,20 @@
-import Container from '../components/container/container';
 import Footer from '../components/footer/footer';
-import Header from '../components/header';
-import TopBar from '../components/topBar/topBar';
+import Header from '../components/header/header';
+import Layout from '../components/layout/layout';
+import SEO from '../components/seo/seo';
 
 function Album() {
   return (
     <>
-      <Container>
-        <Header />
-        <TopBar>Album</TopBar>
-      </Container>
+      <SEO title="Fotoalbum" />
+      <Header />
+      <Layout>
+        <div className="flex h-96 items-center justify-center">
+          <p className="font-fries text-2xl">
+            Bekijk binnenkort hier al de foto's van de kampen!
+          </p>
+        </div>
+      </Layout>
       <Footer />
     </>
   );

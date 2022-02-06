@@ -1,71 +1,73 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Logo from '../../assets/images/logo.png';
 import GirlIllustration from '../../assets/illustrations/logo-girl.svg';
 
 import BoyIllustration from '../../assets/illustrations/logo-boy.svg';
 import LetterLogo from '../../assets/illustrations/logo-letters.svg';
-import StandardLayout from '../../container/layout/standardLayout';
+import LogoMobile from '../../assets/logo/logo-background-orange.png';
+import Layout from '../layout/layout';
 
 function Header() {
   const { pathname } = useRouter();
   return (
-    <StandardLayout>
-      <div className="flex justify-center pt-10 pb-6 lg:hidden">
+    <Layout>
+      <div className="mt-12 mb-8 flex justify-center xl:hidden">
         <Link href="/">
           <Image
             className="cursor-pointer"
-            src={Logo}
+            src={LogoMobile}
             alt="Logo"
             width={217}
             height={191}
+            placeholder="blur"
           />
         </Link>
       </div>
-      <ul className="flex flex-wrap items-center justify-center px-8 font-fries text-2xl md:justify-between lg:pt-20 xl:px-4">
-        <li className="p-2 md:px-0">
+      <ul className="flex flex-wrap items-center justify-center font-fries text-2xl md:justify-between xl:pt-16">
+        <li className="transition-all hover:rotate-3 hover:scale-110 md:px-0">
           <Link href="/">
             <a
               className={
                 pathname === '/'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'p-4 underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'p-4 no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Home
             </a>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
-          <Link href="/info">
+        <li className="p-2 transition-all hover:-rotate-2 hover:scale-110 md:px-0">
+          <Link href="/info ">
             <a
               className={
                 pathname === '/info'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'p-4 underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'p-4 no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Info/Prijzen
             </a>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
+        <li className="p-2 transition-all hover:rotate-2 hover:scale-110 md:px-0">
           <Link href="/camps">
             <a
               className={
                 pathname === '/camps'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'p-4 underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'p-4 no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Kampen
             </a>
           </Link>
         </li>
-        <li className="group hidden cursor-pointer lg:inline">
+        <li className="group relative hidden cursor-pointer xl:inline">
+          <div className="absolute -top-1 left-1/2 z-0 h-60 w-60 -translate-x-2/4 rounded-full bg-orange transition-all group-hover:opacity-80" />
           <Link href="/">
-            <div className="grid grid-cols-2">
+            <div className="z-50 grid grid-cols-2">
               <div className="justify-self-end transition-all group-hover:rotate-6">
                 <Image
                   src={GirlIllustration}
@@ -93,39 +95,39 @@ function Header() {
             </div>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
+        <li className="p-2 transition-all hover:-rotate-3 hover:scale-110  md:px-0">
           <Link href="/album">
             <a
               className={
                 pathname === '/album'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'p-4 underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'p-4 no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Fotoalbum
             </a>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
+        <li className="p-2 transition-all hover:rotate-2 hover:scale-110 md:px-0">
           <Link href="/register">
             <a
               className={
                 pathname === '/register'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'p-4 underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'p-4 no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               Inschrijven
             </a>
           </Link>
         </li>
-        <li className="p-2 md:px-0">
+        <li className="p-2 transition-all hover:-rotate-2 hover:scale-110 md:px-0">
           <Link href="/contact">
             <a
               className={
                 pathname === '/contact'
-                  ? 'rounded-full underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
-                  : 'rounded-full no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  ? 'p-4 underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
+                  : 'p-4 no-underline decoration-orange decoration-dotted decoration-4 underline-offset-8'
               }
             >
               contact
@@ -133,7 +135,7 @@ function Header() {
           </Link>
         </li>
       </ul>
-    </StandardLayout>
+    </Layout>
   );
 }
 

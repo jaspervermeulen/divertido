@@ -1,16 +1,12 @@
 import '../styles/globals.css';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import Modal from '../components/modal/modal';
 
 function MyApp({ Component, pageProps }) {
-  const [isOpen, setIsOpen] = useState(true);
-
   return (
-    <>
-      <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
+    <div className="selection:bg-blue selection:text-white">
+      <div className="flex h-8 w-full items-center justify-center overflow-hidden bg-blue" />
       <Component {...pageProps} />
-    </>
+    </div>
   );
 }
 

@@ -10,9 +10,10 @@ function formikInput({
   label,
   htmlFor,
   className,
+  options,
 }) {
   return (
-    <div className={`form-row ${className}`}>
+    <div className={`form-row ${className} font-sans`}>
       <label className="font-sans text-lg font-medium" htmlFor={htmlFor}>
         {label}
       </label>
@@ -26,7 +27,19 @@ function formikInput({
           as === 'textarea' ? 'h-48' : 'h-11'
         } w-full rounded-md border-2 border-blue px-3 font-sans
       `}
-      />
+      >
+        {options?.map((option, idx) => (
+          <option
+            key={idx}
+            id={idx}
+            value={option.value}
+            defaultValue={option.default}
+            disabled={option.default}
+          >
+            {option.text}
+          </option>
+        ))}
+      </Field>
       <ErrorMessage name={name} component="span" className="text-red" />
     </div>
   );

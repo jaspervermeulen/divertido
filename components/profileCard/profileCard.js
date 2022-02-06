@@ -4,34 +4,43 @@ import {
   LocationMarkerIcon,
   PhoneIcon,
 } from '@heroicons/react/outline';
-import Image from 'next/image';
-import Paragraph from '../paragraph/paragraph';
+import { useEffect, useState } from 'react';
+import ImageUrlBuilder from '@sanity/image-url';
 
 function ProfileCard({
-  image,
   name,
   education,
   qualification,
   location,
   phone,
-  key,
+  index,
+  image,
 }) {
+  const [imageUrl, setImageUrl] = useState('');
+
+  useEffect(() => {
+    const imgBuilder = ImageUrlBuilder({
+      projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+      dataset: 'production',
+    });
+
+    setImageUrl(imgBuilder.image(image));
+  }, [image]);
+
   return (
     <div
-      key={key}
-      className="mb-6 flex flex-col md:flex-row lg:flex lg:flex-col"
+      key={index}
+      className="flex w-full flex-col items-start gap-4 rounded-lg border-4 border-orange border-opacity-50 bg-opacity-50 px-6 py-4 transition-all hover:border-blue sm:flex-row sm:items-center sm:gap-6"
     >
-      <Image
+      <img
+        src={imageUrl}
         width={200}
         height={200}
-        layout="fixed"
-        src={image}
-        alt="Dimitri Delporte Portret"
+        alt={`Portretfoto van ${name}`}
+        className="w-36 rounded-full lg:w-48"
       />
-      <div className="mt-4 ml-0 md:ml-4 lg:ml-0">
-        <Paragraph funky={false} size="medium">
-          {name}
-        </Paragraph>
+      <div className="ml-0 w-full md:ml-4 lg:ml-0">
+        <p className="font-fries text-2xl">{name}</p>
         <ul>
           <li className="mt-3 flex items-start">
             <AcademicCapIcon className="mt-0.5 h-5 w-5" />
