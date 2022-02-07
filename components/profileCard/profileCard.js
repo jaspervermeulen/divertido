@@ -50,16 +50,21 @@ function ProfileCard({
             <QuestionMarkCircleIcon className="mt-0.5 h-5 w-5" />
             <p className="ml-1">{qualification}</p>
           </li>
-          <li className="mt-3 flex items-start">
-            <LocationMarkerIcon className="mt-0.5 h-5 w-5" />
-            <p className="ml-1">{location}</p>
-          </li>
-          <li className="mt-3 flex items-start">
-            <PhoneIcon className="mt-0.5 h-5 w-5" />
-            <p className="ml-1 hover:opacity-60">
-              <a href={`tel:${phone}`}>{phone}</a>
-            </p>
-          </li>
+          {location && (
+            <li className="mt-3 flex items-start">
+              <LocationMarkerIcon className="mt-0.5 h-5 w-5" />
+              <p className="ml-1">{location}</p>
+            </li>
+          )}
+
+          {phone && (
+            <li className="mt-3 flex items-start">
+              <PhoneIcon className="mt-0.5 h-5 w-5" />
+              <p className="ml-1 hover:opacity-60">
+                <a href={`tel:${phone}`}>{phone}</a>
+              </p>
+            </li>
+          )}
         </ul>
       </div>
     </div>
