@@ -65,7 +65,6 @@ function Header() {
           </Link>
         </li>
         <li className="group relative hidden cursor-pointer xl:inline">
-          <div className="absolute -top-1 left-1/2 z-0 h-60 w-60 -translate-x-2/4 rounded-full bg-orange transition-all group-hover:opacity-80" />
           <Link href="/">
             <div className="z-50 grid grid-cols-2">
               <div className="justify-self-end transition-all group-hover:rotate-6">

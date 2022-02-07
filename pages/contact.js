@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   BriefcaseIcon,
   CheckCircleIcon,
@@ -26,6 +26,11 @@ import TogetherLogo from '../assets/logo/logo-background-orange.png';
 function Contact({ teamMembers }) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [sortedTeamMembers, setSortedTeamMembers] = useState([]);
+
+  useEffect(() => {
+    setSortedTeamMembers(teamMembers.sort((a, b) => a.order - b.order));
+  }, []);
 
   function onSubmit(values, { resetForm }) {
     setLoading(true);
@@ -55,7 +60,7 @@ function Contact({ teamMembers }) {
           <div className="">
             <p className="font-fries text-2xl">Team</p>
             <div className="mt-2 grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {teamMembers.map((teamMember, id) => (
+              {sortedTeamMembers.map((teamMember, id) => (
                 <ProfileCard
                   key={id}
                   index={id}
