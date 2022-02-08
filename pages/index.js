@@ -6,6 +6,7 @@ import {
   AcademicCapIcon,
   BadgeCheckIcon,
 } from '@heroicons/react/outline';
+import { useEffect, useState } from 'react';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
 
@@ -18,12 +19,49 @@ import Layout from '../components/layout/layout';
 import SEO from '../components/seo/seo';
 import CampCard from '../components/cards/campCard';
 import Paragraph from '../components/paragraph/paragraph';
+import Modal from '../components/modal/modal';
 
-function Home({ camps }) {
+function Home({ camps, announcements }) {
+  const [notificationModal, setNotificationModal] = useState(false);
+
+  useEffect(() => {
+    if (window.sessionStorage.getItem('notification') === 'seen') {
+      return;
+    }
+    if (window.sessionStorage.getItem('notification') === null) {
+      if (announcements[0].open) {
+        window.sessionStorage.setItem('notification', true);
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (window.sessionStorage.getItem('notification') === 'seen') {
+      return;
+    }
+    if (window.sessionStorage.getItem('notification') === null) {
+      setNotificationModal(false);
+    } else {
+      setNotificationModal(true);
+    }
+  }, []);
+
+  function handleCloseNotification() {
+    window.sessionStorage.setItem('notification', 'seen');
+    setNotificationModal(false);
+  }
+
   return (
     <>
       <SEO title="Home" />
       <Header />
+      <Modal
+        isOpen={notificationModal}
+        setIsOpen={setNotificationModal}
+        onClose={() => handleCloseNotification()}
+        text={announcements[0].description}
+        title={announcements[0].title}
+      />
       <div className="py-16">
         <Layout>
           <div className="flex flex-col items-center justify-center">
@@ -235,8 +273,12 @@ export const getServerSideProps = async () => {
   const campsUrl = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${queryCamps}`;
   const camps = await fetch(campsUrl).then((res) => res.json());
 
+  const queryAnnouncement = `*[ _type == "announcement" ]`;
+  const announcementUrl = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${queryAnnouncement}`;
+  const announcements = await fetch(announcementUrl).then((res) => res.json());
+
   return {
-    props: { camps: camps.result },
+    props: { camps: camps.result, announcements: announcements.result },
   };
 };
 

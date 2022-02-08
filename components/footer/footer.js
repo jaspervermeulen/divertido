@@ -122,9 +122,9 @@ function Footer() {
         <div className="flex justify-center sm:justify-start">
           <p className="py-8 font-sans text-sm font-medium text-white opacity-70">
             <Link href="https://divertido.sanity.studio/desk">Admin</Link>{' '}
-            &bull; <Link href="/policy">Privacy Policy</Link> &bull; Website by
+            &bull; <Link href="/policy">Privacy Policy</Link> &bull;{' '}
             <Link href="https://www.linkedin.com/in/jasper-vermeulen-billy/">
-              @Jasper
+              Website by @Jasper
             </Link>
           </p>
         </div>
