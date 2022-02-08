@@ -5,7 +5,7 @@ import GirlIllustration from '../../assets/illustrations/logo-girl.svg';
 
 import BoyIllustration from '../../assets/illustrations/logo-boy.svg';
 import LetterLogo from '../../assets/illustrations/logo-letters.svg';
-import LogoMobile from '../../assets/logo/logo-background-orange.png';
+import LogoMobile from '../../assets/logo/Afbeelding.png';
 import Layout from '../layout/layout';
 
 function Header() {
@@ -24,7 +24,7 @@ function Header() {
           />
         </Link>
       </div>
-      <ul className="flex flex-wrap items-center justify-center font-fries text-2xl md:justify-between xl:pt-16">
+      <ul className="flex flex-wrap items-center justify-center font-fries text-2xl md:justify-between xl:grid xl:grid-cols-8 xl:content-center xl:items-center xl:justify-items-center xl:pt-16">
         <li className="transition-all hover:rotate-3 hover:scale-110 md:px-0">
           <Link href="/">
             <a
@@ -64,7 +64,7 @@ function Header() {
             </a>
           </Link>
         </li>
-        <li className="group relative hidden cursor-pointer xl:inline">
+        <li className="group relative hidden cursor-pointer xl:col-span-2 xl:inline">
           <Link href="/">
             <div className="z-50 grid grid-cols-2">
               <div className="justify-self-end transition-all group-hover:rotate-6">

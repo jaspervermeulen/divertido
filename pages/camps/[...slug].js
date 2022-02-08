@@ -1,18 +1,46 @@
+import { useEffect, useState } from 'react';
+import { ArrowRightIcon } from '@heroicons/react/outline';
+import Link from 'next/link';
 import Header from '../../components/header/header';
 import SEO from '../../components/seo/seo';
-import Heading from '../../components/heading/heading';
 import Layout from '../../components/layout/layout';
 import LocationCard from '../../components/cards/locationCard';
 import Footer from '../../components/footer/footer';
 import CampItemCard from '../../components/cards/campItemCard';
+import Paragraph from '../../components/paragraph/paragraph';
+import { stringToSlug } from '../../utils/stringToSlug.util';
 
-function Camp({ camp }) {
+function Camp({ camp, camps }) {
+  const [otherCamps, setOtherCamps] = useState([]);
+
+  useEffect(() => {
+    setOtherCamps(camps.filter((item) => item.name !== camp.name));
+  }, [camp, camps]);
+
   return (
     <>
       <SEO title={camp.name} />
       <Header />
       <Layout>
-        <Heading>{camp.name}</Heading>
+        <div className="mt-12 mb-6 flex flex-col justify-between font-fries text-4xl sm:flex-row">
+          <Paragraph size="xl">{camp.name}</Paragraph>
+          <div className="mt-3 flex gap-2 sm:mt-0 sm:gap-0">
+            {camps &&
+              otherCamps.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="ml-0 w-full rounded-lg bg-orange text-lg text-white sm:ml-2 sm:w-fit"
+                >
+                  <Link href={`/camps/${stringToSlug(item.name)}`}>
+                    <div className="flex cursor-pointer items-center p-2">
+                      <p className="mr-1">{item.name}</p>
+                      <ArrowRightIcon className="h-5 w-5" />
+                    </div>
+                  </Link>
+                </div>
+              ))}
+          </div>
+        </div>
         <div className="flex flex-col-reverse md:flex-row md:gap-12">
           <div className="mt-12 w-full md:mt-0 md:w-2/5">
             <p className="font-fries text-2xl">Locatie's</p>
@@ -89,9 +117,14 @@ export const getServerSideProps = async ({ params }) => {
 
   const camp = result.result.find((ress) => ress.slug.current === pageSlug);
 
+  const queryCamps = `*[ _type == "camp" ]`;
+  const urlCamps = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${queryCamps}`;
+  const camps = await fetch(urlCamps).then((res) => res.json());
+
   return {
     props: {
       camp,
+      camps: camps.result,
     },
   };
 };

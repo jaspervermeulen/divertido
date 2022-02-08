@@ -14,7 +14,7 @@ function Camp({ camps }) {
         <Heading>Onze Kampen</Heading>
         <div className="text-black">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {camps.result.map((camp, index) => (
+            {camps.map((camp, index) => (
               <CampCard
                 key={index}
                 index={index}
@@ -37,7 +37,7 @@ export const getServerSideProps = async () => {
   const url = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${query}`;
   const camps = await fetch(url).then((res) => res.json());
   return {
-    props: { camps },
+    props: { camps: camps.result },
   };
 };
 

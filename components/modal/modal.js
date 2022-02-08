@@ -1,17 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
-export default function Modal({ isOpen, setIsOpen }) {
-  function closeModal() {
-    setIsOpen(false);
-  }
-
+export default function Modal({ isOpen, onClose, text, title }) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={() => closeModal()}
+        onClose={() => onClose()}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
@@ -42,24 +38,20 @@ export default function Modal({ isOpen, setIsOpen }) {
             leaveTo="opacity-0 scale-95"
           >
             <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-8 text-left align-middle shadow-xl transition-all">
-              <Dialog.Title
-                as="h3"
-                className="font-fries text-4xl text-gray-900"
-              >
-                Nieuw kamp in Kortrijk/Roeselare !!!
-              </Dialog.Title>
-              <div className="mt-4">
-                <p className="">
-                  We hebben een nieuwe kamplocatie in Kortrijk/Roeselare, ontdek
-                  de details op de detail pagina van het kamp op de pagina
-                  Kampen!
-                </p>
-              </div>
+              {title && (
+                <Dialog.Title
+                  as="h3"
+                  className="mb-4 font-fries text-4xl text-gray-900"
+                >
+                  {title}
+                </Dialog.Title>
+              )}
+              {text && <div className="">{text}</div>}
 
               <div className="">
                 <button
                   type="button"
-                  onClick={() => closeModal()}
+                  onClick={() => onClose()}
                   className="mt-8 h-12 w-full rounded-md bg-blue font-fries text-white hover:opacity-60"
                 >
                   Sluit de melding

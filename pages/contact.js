@@ -21,7 +21,7 @@ import Heading from '../components/heading/heading';
 import ProfileCard from '../components/profileCard/profileCard';
 import SEO from '../components/seo/seo';
 
-import TogetherLogo from '../assets/logo/logo-background-orange.png';
+import TogetherLogo from '../assets/logo/Afbeelding.png';
 
 function Contact({ teamMembers }) {
   const [submitted, setSubmitted] = useState(false);
@@ -30,7 +30,7 @@ function Contact({ teamMembers }) {
 
   useEffect(() => {
     setSortedTeamMembers(teamMembers.sort((a, b) => a.order - b.order));
-  }, []);
+  }, [teamMembers]);
 
   function onSubmit(values, { resetForm }) {
     setLoading(true);
@@ -165,7 +165,7 @@ function Contact({ teamMembers }) {
               </div>
             </div>
             <div className="mb-12 lg:mb-0 lg:w-1/2">
-              <p className="mb-2 font-fries text-2xl">Bedrijfdetails</p>
+              <p className="mb-2 font-fries text-2xl">Divertido Kampen VZW</p>
               <div className="flex flex-col items-start gap-6 rounded-lg border-4 border-orange border-opacity-50 py-4 px-6 hover:border-blue sm:flex-row sm:items-center sm:gap-0">
                 <div className="relative h-44 w-48">
                   <Image
