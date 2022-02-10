@@ -27,7 +27,7 @@ function Camp({ camps }) {
           </div>
         </div>
       </Layout>
-      <Footer />
+      <Footer campList={camps} />
     </>
   );
 }

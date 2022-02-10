@@ -3,7 +3,7 @@ import Header from '../components/header/header';
 import Layout from '../components/layout/layout';
 import SEO from '../components/seo/seo';
 
-function Album() {
+function Album({ camps }) {
   return (
     <>
       <SEO title="Fotoalbum" />
@@ -15,9 +15,18 @@ function Album() {
           </p>
         </div>
       </Layout>
-      <Footer />
+      <Footer campList={camps} />
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  const query = `*[ _type == "camp" ]`;
+  const url = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${query}`;
+  const camps = await fetch(url).then((res) => res.json());
+  return {
+    props: { camps: camps.result },
+  };
+};
 
 export default Album;

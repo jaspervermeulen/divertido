@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   UserGroupIcon,
@@ -10,18 +9,15 @@ import { useEffect, useState } from 'react';
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
 
-import Image1 from '../assets/images/1.png';
-import Image2 from '../assets/images/2.png';
-import Image3 from '../assets/images/3.png';
-import Image4 from '../assets/images/4.png';
 import { games } from '../data/games';
 import Layout from '../components/layout/layout';
 import SEO from '../components/seo/seo';
 import CampCard from '../components/cards/campCard';
 import Paragraph from '../components/paragraph/paragraph';
 import Modal from '../components/modal/modal';
+import HomeImg from '../components/homeImg/homeImg';
 
-function Home({ camps, announcements }) {
+function Home({ camps, announcements, images }) {
   const [notificationModal, setNotificationModal] = useState(false);
 
   useEffect(() => {
@@ -91,46 +87,9 @@ function Home({ camps, announcements }) {
 
         <div className="mt-8 flex justify-center">
           <div className="flex snap-x gap-4 overflow-x-scroll">
-            <div className="snap-center">
-              <Image
-                src={Image1}
-                alt="Image"
-                width={268}
-                height={268}
-                layout="fixed"
-                placeholder="blur"
-              />
-            </div>
-            <div className="snap-center">
-              <Image
-                src={Image2}
-                alt="Image"
-                width={268}
-                height={268}
-                layout="fixed"
-                placeholder="blur"
-              />
-            </div>
-            <div className="snap-center">
-              <Image
-                src={Image3}
-                alt="Image"
-                width={268}
-                height={268}
-                layout="fixed"
-                placeholder="blur"
-              />
-            </div>
-            <div className="snap-center">
-              <Image
-                src={Image4}
-                alt="Image"
-                width={268}
-                height={268}
-                layout="fixed"
-                placeholder="blur"
-              />
-            </div>
+            {images[0].images.map((image) => (
+              <HomeImg image={image.asset} />
+            ))}
           </div>
         </div>
         <div className="mt-6 flex justify-center px-4 sm:px-8 xl:px-0">
@@ -263,7 +222,7 @@ function Home({ camps, announcements }) {
           </div>
         </div>
       </Layout>
-      <Footer />
+      <Footer campList={camps} />
     </>
   );
 }
@@ -277,8 +236,16 @@ export const getServerSideProps = async () => {
   const announcementUrl = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${queryAnnouncement}`;
   const announcements = await fetch(announcementUrl).then((res) => res.json());
 
+  const queryImages = `*[ _type == "images" ]`;
+  const imagesUrl = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${queryImages}`;
+  const images = await fetch(imagesUrl).then((res) => res.json());
+
   return {
-    props: { camps: camps.result, announcements: announcements.result },
+    props: {
+      camps: camps.result,
+      announcements: announcements.result,
+      images: images.result,
+    },
   };
 };
 

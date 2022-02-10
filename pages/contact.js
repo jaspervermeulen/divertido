@@ -23,7 +23,7 @@ import SEO from '../components/seo/seo';
 
 import TogetherLogo from '../assets/logo/Afbeelding.png';
 
-function Contact({ teamMembers }) {
+function Contact({ teamMembers, camps }) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [sortedTeamMembers, setSortedTeamMembers] = useState([]);
@@ -207,7 +207,7 @@ function Contact({ teamMembers }) {
           </div>
         </div>
       </Layout>
-      <Footer />
+      <Footer campList={camps} />
     </>
   );
 }
@@ -216,8 +216,13 @@ export const getServerSideProps = async () => {
   const query = `*[ _type == "team" ]`;
   const url = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${query}`;
   const team = await fetch(url).then((res) => res.json());
+
+  const queryCamps = `*[ _type == "camp" ]{name}`;
+  const campsUrl = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${queryCamps}`;
+  const camps = await fetch(campsUrl).then((res) => res.json());
+
   return {
-    props: { teamMembers: team.result },
+    props: { teamMembers: team.result, camps: camps.result },
   };
 };
 

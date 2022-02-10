@@ -19,10 +19,8 @@ export default async function (req, res) {
     // verify connection configuration
     transporter.verify((error, success) => {
       if (error) {
-        console.log(error);
         reject(error);
       } else {
-        console.log('Server is ready to take our messages');
         resolve(success);
       }
     });
@@ -223,10 +221,8 @@ export default async function (req, res) {
     // send mail
     transporter.sendMail(mailData, (err, info) => {
       if (err) {
-        console.error(err);
         reject(err);
       } else {
-        console.log(info);
         resolve(info);
       }
     });

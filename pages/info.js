@@ -7,7 +7,7 @@ import Layout from '../components/layout/layout';
 import Paragraph from '../components/paragraph/paragraph';
 import SEO from '../components/seo/seo';
 
-function Info() {
+function Info({ camps }) {
   return (
     <>
       <SEO title="Info/Prijzen" />
@@ -83,10 +83,12 @@ function Info() {
                   </Disclosure.Button>
                   <Disclosure.Panel className=" pt-4 pb-2 font-fries text-2xl">
                     <ul className="ml-6 list-disc font-sans text-xl font-medium">
-                      <li>Drankje en versnapering</li>
-                      <li className="mt-1">Ongevallenverzekering</li>
-                      <li className="mt-1">Alle activiteiten en materiaal</li>
-                      <li className="mt-1">Pedagogisch geschoolde monitoren</li>
+                      <li>Aangepaste sportkledij</li>
+                      <li className="mt-1">Boterhammen + Drinkfles</li>
+                      <li className="mt-1">Ev. Eigen koek en drankje</li>
+                      <li className="mt-1 list-none">
+                        (Water voorzien door ons)
+                      </li>
                     </ul>
                   </Disclosure.Panel>
                 </>
@@ -119,7 +121,7 @@ function Info() {
                       </li>
                     </ul>
                     <p className="mt-4 font-sans text-xl font-medium">
-                      Geen opvang op de laatste dag van het kamp!
+                      (Geen opvang op vrijdagavond)
                     </p>
                   </Disclosure.Panel>
                 </>
@@ -154,8 +156,14 @@ function Info() {
                         Kennen jullie het bestaan van Sport-Axibonnen? Dit is
                         een betaalmiddel dat personen met een verhoogde
                         tegemoetkoming krijgen, van de Stad Brugge, om
-                        sportkampen te betalen. Klik op deze link voor meer
-                        info.
+                        sportkampen te betalen. Klik op deze{' '}
+                        <a
+                          className="text-blue-dark underline"
+                          href="https://www.brugge.be/jeugd-axi-bon"
+                        >
+                          link
+                        </a>{' '}
+                        voor meer info.
                       </li>
                     </ul>
                   </Disclosure.Panel>
@@ -227,9 +235,21 @@ function Info() {
         </div>
       </Layout>
 
-      <Footer />
+      <Footer campList={camps} />
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  const queryCamps = `*[ _type == "camp" ]`;
+  const campsUrl = `https://${process.env.NEXT_PUBLIC_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=${queryCamps}`;
+  const camps = await fetch(campsUrl).then((res) => res.json());
+
+  return {
+    props: {
+      camps: camps.result,
+    },
+  };
+};
 
 export default Info;

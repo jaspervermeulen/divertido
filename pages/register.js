@@ -369,7 +369,7 @@ function Register({ camps }) {
                                     setSelectedCamp(e.target.value)
                                   }
                                 >
-                                  <option value="" defaultValue disabled hidden>
+                                  <option defaultValue disabled selected>
                                     Kies je kamplocatie
                                   </option>
                                   {campOptions.map((option, id) => (
@@ -553,7 +553,7 @@ function Register({ camps }) {
           </div>
         </div>
       </Layout>
-      <Footer />
+      <Footer campList={camps} />
     </>
   );
 }
