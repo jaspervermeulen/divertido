@@ -11,8 +11,9 @@ import Logo from '../../assets/logo/logo-letter.svg';
 
 import FacebookIcon from '../../assets/facebookIcon.svg';
 import InstagramIcon from '../../assets/instagramIcon.svg';
+import { stringToSlug } from '../../utils/stringToSlug.util';
 
-function Footer() {
+function Footer({ campList }) {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -73,12 +74,11 @@ function Footer() {
               <li className="mb-2 hover:opacity-60">
                 <Link href="/info">Info/prijzen</Link>
               </li>
-              <li className="mb-2 hover:opacity-60">
-                <Link href="/">Zeebrugge/Dudzele</Link>
-              </li>
-              <li className="mb-2 hover:opacity-60">
-                <Link href="/">Sint-Kruis Brugge</Link>
-              </li>
+              {campList?.map((item, idx) => (
+                <li key={idx} className="mb-2 hover:opacity-60">
+                  <Link href={`/${stringToSlug(item.name)}`}>{item.name}</Link>
+                </li>
+              ))}
               <li className="mb-2 hover:opacity-60">
                 <Link href="/register">Inschrijven</Link>
               </li>
@@ -91,30 +91,32 @@ function Footer() {
             <p className="mb-2 font-fries text-xl">Sociale media</p>
             <ul>
               <li className="mb-2 flex cursor-pointer hover:opacity-60">
-                <Link href="https://www.facebook.com/Divertidokampen">
-                  <>
-                    <Image
-                      src={FacebookIcon}
-                      width={26}
-                      height={26}
-                      layout="fixed"
-                    />
-                    <p className="ml-1.5">Facebook</p>
-                  </>
-                </Link>
+                <a
+                  className="flex"
+                  href="https://www.facebook.com/Divertidokampen"
+                >
+                  <Image
+                    src={FacebookIcon}
+                    width={26}
+                    height={26}
+                    layout="fixed"
+                  />
+                  <p className="ml-1.5">Facebook</p>
+                </a>
               </li>
               <li className="mb-2 flex cursor-pointer hover:opacity-60">
-                <Link href="https://www.instagram.com/divertidokampen/">
-                  <>
-                    <Image
-                      src={InstagramIcon}
-                      width={26}
-                      height={26}
-                      layout="fixed"
-                    />
-                    <p className="ml-1.5">Instagram</p>
-                  </>
-                </Link>
+                <a
+                  className="flex"
+                  href="https://www.instagram.com/divertidokampen/"
+                >
+                  <Image
+                    src={InstagramIcon}
+                    width={26}
+                    height={26}
+                    layout="fixed"
+                  />
+                  <p className="ml-1.5">Instagram</p>
+                </a>
               </li>
             </ul>
           </div>

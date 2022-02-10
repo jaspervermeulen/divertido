@@ -98,7 +98,7 @@ function Camp({ camp, camps }) {
           </div>
         </div>
       </Layout>
-      <Footer />
+      <Footer campList={camps} />
     </>
   );
 }
