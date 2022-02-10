@@ -141,9 +141,7 @@ function Register({ camps }) {
                     </span>
                   </p>
                   <p className="mt-2 font-sans text-lg">
-                    Ook de medische fiche is een verplichting om in te vullen en
-                    mee te brengen op de eerste kampdag. Dit krijg je ook
-                    opgezonden in onze mail of kan je hieronder downloaden.
+                    Ook de medische fiche is een verplichting om in te vullen.
                   </p>
                 </div>
               </div>
