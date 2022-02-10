@@ -28,7 +28,7 @@ export default async function (req, res) {
 
   const mailData = {
     from: 'divertidomailservice@gmail.com',
-    to: 'jaspervermeulen@icloud.com',
+    to: 'info@divertido-kampen.be',
     subject: `Inschrijving Kamp | ${req.body.participantFullName}`,
     text: `${req.body.parentFirstname} | Verzender: ${req.body.parentFirstname}`,
     html: `
