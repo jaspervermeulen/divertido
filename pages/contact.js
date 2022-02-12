@@ -180,18 +180,18 @@ function Contact({ teamMembers, camps }) {
                   <p className="mb-2 font-fries text-2xl">Divertido Kampen</p>
 
                   <a
-                    href="mailto:info@diverto-kampen.be"
+                    href="tel:0495307016"
                     className="mb-2 flex hover:opacity-60"
                   >
                     <PhoneIcon className="mt-0.5 h-5 w-5" />
                     <p className="ml-1.5">0495/307016</p>
                   </a>
                   <a
-                    href="mailto:info@diverto-kampen.be"
+                    href="mailto:info@divertido-kampen.be"
                     className="mb-2 flex hover:opacity-60"
                   >
                     <MailIcon className="mt-0.5 h-5 w-5" />
-                    <p className="ml-1.5">info@diverto-kampen.be</p>
+                    <p className="ml-1.5">info@divertido-kampen.be</p>
                   </a>
                   <div className="mb-2 flex">
                     <CreditCardIcon className="mt-0.5 h-5 w-5" />

@@ -42,19 +42,16 @@ function Footer({ campList }) {
         <div className="flex sm:mt-8">
           <div className="mr-16 hidden sm:inline">
             <p className="mb-2 font-fries text-xl">Info</p>
-            <a
-              href="mailto:info@diverto-kampen.be"
-              className="mb-2 flex hover:opacity-60"
-            >
+            <a href="tel:0495307016" className="mb-2 flex hover:opacity-60">
               <PhoneIcon className="h-6 w-6" />
               <p className="ml-1.5">0495/307016</p>
             </a>
             <a
-              href="mailto:info@diverto-kampen.be"
+              href="mailto:info@divertido-kampen.be"
               className="mb-2 flex hover:opacity-60"
             >
               <MailIcon className="h-6 w-6" />
-              <p className="ml-1.5">info@diverto-kampen.be</p>
+              <p className="ml-1.5">info@divertido-kampen.be</p>
             </a>
             <div className="mb-2 flex">
               <CreditCardIcon className="h-6 w-6" />
