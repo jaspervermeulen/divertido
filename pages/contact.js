@@ -23,6 +23,8 @@ import SEO from '../components/seo/seo';
 
 import TogetherLogo from '../assets/logo/Afbeelding.png';
 
+import KidsLogo from '../assets/illustrations/together.svg';
+
 function Contact({ teamMembers, camps }) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -168,12 +170,13 @@ function Contact({ teamMembers, camps }) {
               <p className="mb-2 font-fries text-2xl">Divertido Kampen VZW</p>
               <div className="flex flex-col items-start gap-6 rounded-lg border-4 border-orange border-opacity-50 py-4 px-6 hover:border-blue sm:flex-row sm:items-center sm:gap-0">
                 <div className="relative h-44 w-48">
-                  <Image
+                  {/* <Image
                     src={TogetherLogo}
                     alt="Logo"
                     layout="fill"
                     placeholder="blur"
-                  />
+                  /> */}
+                  <Image src={KidsLogo} layout="fill" />
                 </div>
 
                 <div className="sm:ml-4">
