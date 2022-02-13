@@ -21,8 +21,6 @@ import Heading from '../components/heading/heading';
 import ProfileCard from '../components/profileCard/profileCard';
 import SEO from '../components/seo/seo';
 
-import TogetherLogo from '../assets/logo/Afbeelding.png';
-
 import KidsLogo from '../assets/illustrations/together.svg';
 
 function Contact({ teamMembers, camps }) {
