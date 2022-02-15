@@ -1,13 +1,19 @@
 import { Dialog, Transition } from '@headlessui/react';
+import mixpanel from 'mixpanel-browser';
 import { Fragment } from 'react';
 
 export default function Modal({ isOpen, onClose, text, title }) {
+  function HandleClose() {
+    mixpanel.track('Website Visit');
+    onClose();
+  }
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={() => onClose()}
+        onClose={() => HandleClose()}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
@@ -51,7 +57,7 @@ export default function Modal({ isOpen, onClose, text, title }) {
               <div className="">
                 <button
                   type="button"
-                  onClick={() => onClose()}
+                  onClick={() => HandleClose()}
                   className="mt-8 h-12 w-full rounded-md bg-blue font-fries text-white hover:opacity-60"
                 >
                   Sluit de melding
