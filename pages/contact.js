@@ -43,7 +43,6 @@ function Contact({ teamMembers, camps }) {
     setLoading(true);
     const myForm = document.getElementById('contactForm');
     const formData = new FormData(myForm);
-    console.log(new URLSearchParams(formData).toString())
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -99,7 +98,7 @@ function Contact({ teamMembers, camps }) {
                     <p className="ml-1.5">Het berichtje is verzonden!</p>
                   </div>
                 ) : (
-                  <form 
+                  <form
                     name="contact"
                     method="POST"
                     data-netlify="true"
@@ -108,7 +107,12 @@ function Contact({ teamMembers, camps }) {
                   >
                     <input type="hidden" name="form-name" value="contact" />
                     <div className="mb-4 mt-2 flex flex-col">
-                      <label className='font-sans text-lg font-medium' htmlFor="name">Name *</label>
+                      <label
+                        className="font-sans text-lg font-medium"
+                        htmlFor="name"
+                      >
+                        Name *
+                      </label>
                       <input
                         className="w-full rounded-md border-2 border-blue px-3 font-sans"
                         type="text"
@@ -119,7 +123,12 @@ function Contact({ teamMembers, camps }) {
                       />
                     </div>
                     <div className="mb-4 mt-2 flex flex-col">
-                      <label className='font-sans text-lg font-medium' htmlFor="email">Email *</label>
+                      <label
+                        className="font-sans text-lg font-medium"
+                        htmlFor="email"
+                      >
+                        Email *
+                      </label>
                       <input
                         className="w-full rounded-md border-2 border-blue px-3 font-sans"
                         type="email"
@@ -130,9 +139,14 @@ function Contact({ teamMembers, camps }) {
                       />
                     </div>
                     <div className="mb-4 mt-2 flex flex-col">
-                      <label className='font-sans text-lg font-medium' htmlFor="message">Berichtje *</label>
+                      <label
+                        className="font-sans text-lg font-medium"
+                        htmlFor="message"
+                      >
+                        Berichtje *
+                      </label>
                       <textarea
-                        className="w-full h-40 rounded-md border-2 border-blue px-3 font-sans"
+                        className="h-40 w-full rounded-md border-2 border-blue px-3 font-sans"
                         type="text"
                         name="message"
                         id="message"
@@ -147,7 +161,7 @@ function Contact({ teamMembers, camps }) {
                     >
                       Verstuur
                     </button>
-                  </form >
+                  </form>
                 )}
               </div>
             </div>
