@@ -9,6 +9,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@babel/runtime": "^7.17.9",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "@sanity/client": "^2.23.2",

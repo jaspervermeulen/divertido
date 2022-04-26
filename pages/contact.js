@@ -1,4 +1,3 @@
-import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import {
   BriefcaseIcon,
@@ -11,10 +10,6 @@ import {
 import Image from 'next/image';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
-import { initialContact } from '../forms/initialValues';
-import { ContactSchema } from '../forms/schemas';
-import FormikInput from '../components/input/formikInput';
-import FormikButton from '../components/button/formikButton';
 import Layout from '../components/layout/layout';
 import Heading from '../components/heading/heading';
 
@@ -28,26 +23,39 @@ function Contact({ teamMembers, camps }) {
   const [loading, setLoading] = useState(false);
   const [sortedTeamMembers, setSortedTeamMembers] = useState([]);
 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (name.length > 0 && email.length > 0 && message.length > 0) {
+      setDisabled(false);
+    }
+  }, [name, email, message]);
+
   useEffect(() => {
     setSortedTeamMembers(teamMembers.sort((a, b) => a.order - b.order));
   }, [teamMembers]);
 
-  function onSubmit(values, { resetForm }) {
+  function handleSubmit(event) {
+    event.preventDefault();
     setLoading(true);
-    fetch('/api/contact', {
+    const myForm = document.getElementById('contactForm');
+    const formData = new FormData(myForm);
+    console.log(new URLSearchParams(formData).toString())
+    fetch('/', {
       method: 'POST',
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    }).then((response) => {
-      if (response.status === 200) {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString(),
+    })
+      .then(() => {
+        // eslint-disable-next-line no-console
+        console.log('Form successfully submitted ✅');
         setLoading(false);
-        resetForm({});
         setSubmitted(true);
-      }
-    });
+      })
+      .catch((error) => alert(error));
   }
 
   return (
@@ -91,76 +99,55 @@ function Contact({ teamMembers, camps }) {
                     <p className="ml-1.5">Het berichtje is verzonden!</p>
                   </div>
                 ) : (
-                  <Formik
-                    initialValues={initialContact}
-                    validationSchema={ContactSchema}
-                    onSubmit={(values, { resetForm }) =>
-                      onSubmit(values, { resetForm })
-                    }
+                  <form 
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    onSubmit={(event) => handleSubmit(event)}
+                    id="contactForm"
                   >
-                    {(formik) => {
-                      const { errors, touched, isValid, dirty } = formik;
-                      return (
-                        <div>
-                          <Form>
-                            <div>
-                              <FormikInput
-                                as="input"
-                                errors={errors}
-                                touched={touched}
-                                name="name"
-                                id="name"
-                                type="text"
-                                label="Naam *"
-                                htmlFor="name"
-                              />
-                              <FormikInput
-                                as="input"
-                                errors={errors}
-                                touched={touched}
-                                name="email"
-                                id="email"
-                                type="email"
-                                label="Email *"
-                                htmlFor="email"
-                                className="mt-4 w-full"
-                              />
-                              <FormikInput
-                                as="input"
-                                errors={errors}
-                                touched={touched}
-                                name="subject"
-                                id="subject"
-                                type="text"
-                                label="Onderwerp *"
-                                htmlFor="subject"
-                                className="mt-4"
-                              />
-                            </div>
-                            <div>
-                              <FormikInput
-                                as="textarea"
-                                errors={errors}
-                                touched={touched}
-                                name="message"
-                                id="message"
-                                type="text"
-                                label="Bericht *"
-                                htmlFor="message"
-                                className="mt-4"
-                              />
-                            </div>
-                            <FormikButton
-                              dirty={dirty}
-                              isValid={isValid}
-                              label="Verzend"
-                              className="mt-6 bg-blue transition-all hover:-translate-y-1 hover:bg-blue-dark hover:shadow-xl"
-                            />
-                          </Form>
-                        </div>
-                      );
-                    }}
-                  </Formik>
+                    <input type="hidden" name="form-name" value="contact" />
+                    <div className="mb-4 mt-2 flex flex-col">
+                      <label className='font-sans text-lg font-medium' htmlFor="name">Name *</label>
+                      <input
+                        className="w-full rounded-md border-2 border-blue px-3 font-sans"
+                        type="text"
+                        name="name"
+                        id="name"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                      />
+                    </div>
+                    <div className="mb-4 mt-2 flex flex-col">
+                      <label className='font-sans text-lg font-medium' htmlFor="email">Email *</label>
+                      <input
+                        className="w-full rounded-md border-2 border-blue px-3 font-sans"
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                      />
+                    </div>
+                    <div className="mb-4 mt-2 flex flex-col">
+                      <label className='font-sans text-lg font-medium' htmlFor="message">Berichtje *</label>
+                      <textarea
+                        className="w-full h-40 rounded-md border-2 border-blue px-3 font-sans"
+                        type="text"
+                        name="message"
+                        id="message"
+                        value={message}
+                        onChange={(event) => setMessage(event.target.value)}
+                      />
+                    </div>
+                    <button
+                      className="mt-8 w-full rounded bg-[#4692E6] px-5 pt-3.5 pb-3 text-base text-white outline-offset-4 transition-all hover:-translate-y-1 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:-translate-y-0 disabled:hover:shadow-none dark:bg-sky-800"
+                      type="submit"
+                      disabled={disabled}
+                    >
+                      Verstuur
+                    </button>
+                  </form >
                 )}
               </div>
             </div>
@@ -168,12 +155,6 @@ function Contact({ teamMembers, camps }) {
               <p className="mb-2 font-fries text-2xl">Divertido Kampen VZW</p>
               <div className="flex flex-col items-start gap-6 rounded-lg border-4 border-orange border-opacity-50 py-4 px-6 hover:border-blue sm:flex-row sm:items-center sm:gap-0">
                 <div className="relative h-44 w-48">
-                  {/* <Image
-                    src={TogetherLogo}
-                    alt="Logo"
-                    layout="fill"
-                    placeholder="blur"
-                  /> */}
                   <Image src={KidsLogo} layout="fill" />
                 </div>
 
