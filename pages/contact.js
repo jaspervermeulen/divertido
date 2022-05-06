@@ -43,18 +43,19 @@ function Contact({ teamMembers, camps }) {
     setLoading(true);
     const myForm = document.getElementById('contactForm');
     const formData = new FormData(myForm);
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString(),
-    })
-      .then(() => {
-        // eslint-disable-next-line no-console
-        console.log('Form successfully submitted ✅');
-        setLoading(false);
-        setSubmitted(true);
-      })
-      .catch((error) => alert(error));
+    // fetch('/', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //   body: new URLSearchParams(formData).toString(),
+    // })
+    //   .then(() => {
+    //     // eslint-disable-next-line no-console
+    //     console.log('Form successfully submitted ✅');
+    //     setLoading(false);
+    //     setSubmitted(true);
+    //   })
+    //   .catch((error) => alert(error));
+    console.log(new URLSearchParams(formData).toString())
   }
 
   return (
@@ -99,6 +100,7 @@ function Contact({ teamMembers, camps }) {
                   </div>
                 ) : (
                   <form
+                    netlify
                     name="contact"
                     method="POST"
                     data-netlify="true"
