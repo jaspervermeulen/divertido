@@ -55,7 +55,9 @@ function Contact({ teamMembers, camps }) {
     //     setSubmitted(true);
     //   })
     //   .catch((error) => alert(error));
-    console.log(new URLSearchParams(formData).toString())
+    // eslint-disable-next-line no-console
+    console.log(new URLSearchParams(formData).toString());
+    setSubmitted(true);
   }
 
   return (
