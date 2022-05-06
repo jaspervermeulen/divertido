@@ -101,6 +101,73 @@ function Contact({ teamMembers, camps }) {
                     <p className="ml-1.5">Het berichtje is verzonden!</p>
                   </div>
                 ) : (
+                  // <form
+                  //   netlify
+                  //   name="contact"
+                  //   method="POST"
+                  //   data-netlify="true"
+                  //   onSubmit={(event) => handleSubmit(event)}
+                  //   id="contactForm"
+                  // >
+                  //   <input type="hidden" name="form-name" value="contact" />
+                  //   <div className="mb-4 mt-2 flex flex-col">
+                  //     <label
+                  //       className="font-sans text-lg font-medium"
+                  //       htmlFor="name"
+                  //     >
+                  //       Name *
+                  //     </label>
+                  //     <input
+                  //       className="w-full rounded-md border-2 border-blue px-3 font-sans"
+                  //       type="text"
+                  //       name="name"
+                  //       id="name"
+                  //       value={name}
+                  //       onChange={(event) => setName(event.target.value)}
+                  //     />
+                  //   </div>
+                  //   <div className="mb-4 mt-2 flex flex-col">
+                  //     <label
+                  //       className="font-sans text-lg font-medium"
+                  //       htmlFor="email"
+                  //     >
+                  //       Email *
+                  //     </label>
+                  //     <input
+                  //       className="w-full rounded-md border-2 border-blue px-3 font-sans"
+                  //       type="email"
+                  //       name="email"
+                  //       id="email"
+                  //       value={email}
+                  //       onChange={(event) => setEmail(event.target.value)}
+                  //     />
+                  //   </div>
+                  //   <div className="mb-4 mt-2 flex flex-col">
+                  //     <label
+                  //       className="font-sans text-lg font-medium"
+                  //       htmlFor="message"
+                  //     >
+                  //       Berichtje *
+                  //     </label>
+                  //     <textarea
+                  //       className="h-40 w-full rounded-md border-2 border-blue px-3 font-sans"
+                  //       type="text"
+                  //       name="message"
+                  //       id="message"
+                  //       value={message}
+                  //       onChange={(event) => setMessage(event.target.value)}
+                  //     />
+                  //   </div>
+                  //   <button
+                  //     className="mt-8 w-full rounded bg-[#4692E6] px-5 pt-3.5 pb-3 text-base text-white outline-offset-4 transition-all hover:-translate-y-1 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:-translate-y-0 disabled:hover:shadow-none dark:bg-sky-800"
+                  //     type="submit"
+                  //     disabled={disabled}
+                  //   >
+                  //     Verstuur
+                  //   </button>
+                  // </form>
+                  <div>ok</div>
+                )}
                   <form
                     netlify
                     name="contact"
@@ -166,7 +233,6 @@ function Contact({ teamMembers, camps }) {
                       Verstuur
                     </button>
                   </form>
-                )}
               </div>
             </div>
             <div className="mb-12 lg:mb-0 lg:w-1/2">
