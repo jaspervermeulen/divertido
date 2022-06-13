@@ -1,122 +1,113 @@
-import {
-  CheckCircleIcon,
-  PaperClipIcon,
-  RefreshIcon,
-} from '@heroicons/react/outline';
-import { useEffect, useState } from 'react';
-import { Form, Formik } from 'formik';
-import { useRouter } from 'next/router';
+import { MailIcon, PaperClipIcon } from '@heroicons/react/outline';
+// import { useEffect, useState } from 'react';
+// import { useRouter } from 'next/router';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Heading from '../components/heading/heading';
 import Layout from '../components/layout/layout';
 import SEO from '../components/seo/seo';
-import FormikInput from '../components/input/formikInput';
-import FormikButton from '../components/button/formikButton';
-import { initialRegister } from '../forms/initialValues';
-import { RegisterSchema } from '../forms/schemas';
 
-const grade = [
-  { value: '', text: 'Kies een optie', default: true },
-  { value: '1e kleuter', text: '1e kleuter' },
-  { value: '2e kleuter', text: '2e kleuter' },
-  { value: '3e kleuter', text: '3e kleuter' },
-  { value: '1e leerjaar', text: '1e leerjaar' },
-  { value: '2e leerjaar', text: '2e leerjaar' },
-  { value: '3e leerjaar', text: '3e leerjaar' },
-  { value: '4e leerjaar', text: '4e leerjaar' },
-  { value: '5e leerjaar', text: '5e leerjaar' },
-  { value: '6e leerjaar', text: '6e leerjaar' },
-];
+// const grade = [
+//   { value: '', text: 'Kies een optie', default: true },
+//   { value: '1e kleuter', text: '1e kleuter' },
+//   { value: '2e kleuter', text: '2e kleuter' },
+//   { value: '3e kleuter', text: '3e kleuter' },
+//   { value: '1e leerjaar', text: '1e leerjaar' },
+//   { value: '2e leerjaar', text: '2e leerjaar' },
+//   { value: '3e leerjaar', text: '3e leerjaar' },
+//   { value: '4e leerjaar', text: '4e leerjaar' },
+//   { value: '5e leerjaar', text: '5e leerjaar' },
+//   { value: '6e leerjaar', text: '6e leerjaar' },
+// ];
 
-const gender = [
-  { value: '', text: 'Kies een optie', default: true },
-  { value: 'Jongen', text: 'Jongen' },
-  { value: 'Meisje', text: 'Meisje' },
-];
+// const gender = [
+//   { value: '', text: 'Kies een optie', default: true },
+//   { value: 'Jongen', text: 'Jongen' },
+//   { value: 'Meisje', text: 'Meisje' },
+// ];
 
 function Register({ camps }) {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const [campOptions, setCampOptions] = useState([]);
-  const [selectedCamp, setSelectedCamp] = useState();
+  // const [campOptions, setCampOptions] = useState([]);
+  // const [selectedCamp, setSelectedCamp] = useState();
 
-  const [userCamps, setUserCamps] = useState([]);
-  const [campRequired, setCampRequired] = useState('');
+  // const [userCamps, setUserCamps] = useState([]);
+  // const [campRequired, setCampRequired] = useState('');
 
-  const [gdprImages, setGdprImages] = useState(false);
-  const [gdprData, setGdpaData] = useState(false);
-  const [gdprDataRequired, setGdprRequired] = useState('');
+  // const [gdprImages, setGdprImages] = useState(false);
+  // const [gdprData, setGdpaData] = useState(false);
+  // const [gdprDataRequired, setGdprRequired] = useState('');
 
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setCampOptions([]);
-    camps.forEach((camp) =>
-      // eslint-disable-next-line no-shadow
-      setCampOptions((campOptions) => [...campOptions, camp.name])
-    );
-  }, [camps]);
+  // useEffect(() => {
+  //   setCampOptions([]);
+  //   camps.forEach((camp) =>
+  //     // eslint-disable-next-line no-shadow
+  //     setCampOptions((campOptions) => [...campOptions, camp.name])
+  //   );
+  // }, [camps]);
 
-  useEffect(() => {
-    setCampRequired('');
-  }, [userCamps]);
+  // useEffect(() => {
+  //   setCampRequired('');
+  // }, [userCamps]);
 
-  function handleCheckbox(e) {
-    if (userCamps.includes(e.target.value)) {
-      setUserCamps(userCamps.filter((camp) => camp !== e.target.value));
-    } else {
-      // eslint-disable-next-line no-shadow
-      setUserCamps((userCamps) => [...userCamps, e.target.value]);
-    }
-  }
+  // function handleCheckbox(e) {
+  //   if (userCamps.includes(e.target.value)) {
+  //     setUserCamps(userCamps.filter((camp) => camp !== e.target.value));
+  //   } else {
+  //     // eslint-disable-next-line no-shadow
+  //     setUserCamps((userCamps) => [...userCamps, e.target.value]);
+  //   }
+  // }
 
-  function onSubmit(values, { resetForm }) {
-    if (userCamps.length === 0) {
-      setCampRequired('Gelieve minstens 1 kamp te kiezen');
-      return;
-    }
+  // function onSubmit(values, { resetForm }) {
+  //   if (userCamps.length === 0) {
+  //     setCampRequired('Gelieve minstens 1 kamp te kiezen');
+  //     return;
+  //   }
 
-    if (!gdprData) {
-      setGdprRequired('Dit veld is verplicht.');
-      return;
-    }
+  //   if (!gdprData) {
+  //     setGdprRequired('Dit veld is verplicht.');
+  //     return;
+  //   }
 
-    setLoading(true);
+  //   setLoading(true);
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'smooth',
+  //   });
 
-    if (values.parentAdres2 === '') {
-      values.parentAdres2 = '/';
-    }
+  //   if (values.parentAdres2 === '') {
+  //     values.parentAdres2 = '/';
+  //   }
 
-    if (values.notes === '') {
-      values.notes = '/';
-    }
+  //   if (values.notes === '') {
+  //     values.notes = '/';
+  //   }
 
-    values.gdprImages = gdprImages ? 'Akkoord' : 'Niet akkoord';
-    values.gdprData = gdprData ? 'Akkoord' : 'Niet akkoord';
-    values.selectedCamps = userCamps;
-    values.participantFullName = `${values.participantFirstname} ${values.participantLastname}`;
-    values.parentFullName = `${values.parentFirstname} ${values.parentLastname}`;
+  //   values.gdprImages = gdprImages ? 'Akkoord' : 'Niet akkoord';
+  //   values.gdprData = gdprData ? 'Akkoord' : 'Niet akkoord';
+  //   values.selectedCamps = userCamps;
+  //   values.participantFullName = `${values.participantFirstname} ${values.participantLastname}`;
+  //   values.parentFullName = `${values.parentFirstname} ${values.parentLastname}`;
 
-    fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    }).then((response) => {
-      setLoading(false);
-      resetForm({});
-      setSubmitted(true);
-    });
-  }
+  //   fetch('/api/register', {
+  //     method: 'POST',
+  //     headers: {
+  //       Accept: 'application/json, text/plain, */*',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(values),
+  //   }).then((response) => {
+  //     setLoading(false);
+  //     resetForm({});
+  //     setSubmitted(true);
+  //   });
+  // }
 
   return (
     <>
@@ -147,13 +138,76 @@ function Register({ camps }) {
               </div>
             </div>
           </div>
-          <div className="mt-8 font-fries lg:mt-0 lg:w-2/3">
-            <div className={`${loading ? null : 'hidden'}`}>
+          <div className="mt-8 font-sans text-lg font-medium lg:mt-0 lg:w-2/3">
+            {/* <div className={`${loading ? null : 'hidden'}`}>
               <div className="flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
                 <RefreshIcon className="h-8 w-8 animate-spin" />
               </div>
+            </div> */}
+            <div>
+              <p>
+                We zijn momenteel eventjes aan het werken aan het online
+                inschrijvingsformulier. Je kunt je wel nog altijd inschrijven
+                via mail.
+              </p>
+              <p>
+                Inschrijven doe je door een mailtje te sturen naar
+                info@divertido-kampen.be met volgende gegevens.
+              </p>
+              <a href="mailto:info@divertido-kampen.be">
+                <div className="my-6 flex h-16 w-full items-center justify-center rounded bg-blue">
+                  <MailIcon className="h-8 w-8 text-white" />
+                </div>
+              </a>
+              <p className="mt-6">1. Gegevens deelnemer</p>
+              <ul className="list-inside list-disc">
+                <li>Naam Deelnemer</li>
+                <li>Geboortedatum</li>
+                <li>Leerjaar</li>
+                <li>Geslacht</li>
+              </ul>
+              <p className="mt-6">2. Gegevens ouder/voogd</p>
+              <ul className="list-inside list-disc">
+                <li>Naam ouder/voogd</li>
+                <li>Emailadres ouder/voogd</li>
+                <li>Gsm nummer ouder/voogd</li>
+                <li>Adres</li>
+              </ul>
+              <p className="mt-6">3. Extra info of opmerkingen</p>
+              <p className="mt-6">4. Het gekozen kamp of kampen</p>
+              <p className="mt-6">
+                5. Medische fiche (ingevuld meebrengen naar kamp)
+              </p>
+              <div className="mt-3 flex w-fit items-center rounded-md bg-orange font-fries text-white transition-all hover:-translate-y-1 hover:bg-orange-dark hover:shadow-xl">
+                <a
+                  href="/files/Medische-fiche.pdf"
+                  alt="alt text"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="align-center mt-1 flex px-4 py-2 "
+                >
+                  <PaperClipIcon className="mt-0.5 h-5 w-5" />
+                  <p className="ml-0.5 text-xl">Download Medische Fiche</p>
+                </a>
+              </div>
+              <p className="mt-6">6. Indien u akkoord gaat met gdpr regels</p>
+              <ul className="list-inside list-disc">
+                <li>
+                  Ik ga ermee akkoord dat mijn gegevens gebruikt en opgeslagen
+                  worden voor de algemene administratie.
+                </li>
+                <li>
+                  Ik ga ermee akkoord dat er foto’s genomen worden en deze op
+                  sociale media geplaatst worden.
+                </li>
+              </ul>
+              <a href="mailto:info@divertido-kampen.be">
+                <div className="mt-12 flex h-16 w-full items-center justify-center rounded bg-blue">
+                  <MailIcon className="h-8 w-8 text-white" />
+                </div>
+              </a>
             </div>
-            <div className={`${loading ? 'hidden' : null}`}>
+            {/* <div className={`${loading ? 'hidden' : null}`}>
               {submitted ? (
                 <div className="relative flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
                   <CheckCircleIcon className="mb-1 h-5 w-5" />
@@ -547,7 +601,7 @@ function Register({ camps }) {
                   }}
                 </Formik>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </Layout>

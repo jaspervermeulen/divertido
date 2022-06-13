@@ -1,20 +1,13 @@
-import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import {
   BriefcaseIcon,
-  CheckCircleIcon,
   CreditCardIcon,
   MailIcon,
   PhoneIcon,
-  RefreshIcon,
 } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
-import { initialContact } from '../forms/initialValues';
-import { ContactSchema } from '../forms/schemas';
-import FormikInput from '../components/input/formikInput';
-import FormikButton from '../components/button/formikButton';
 import Layout from '../components/layout/layout';
 import Heading from '../components/heading/heading';
 
@@ -24,31 +17,31 @@ import SEO from '../components/seo/seo';
 import KidsLogo from '../assets/illustrations/together.svg';
 
 function Contact({ teamMembers, camps }) {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [sortedTeamMembers, setSortedTeamMembers] = useState([]);
 
   useEffect(() => {
     setSortedTeamMembers(teamMembers.sort((a, b) => a.order - b.order));
   }, [teamMembers]);
 
-  function onSubmit(values, { resetForm }) {
-    setLoading(true);
-    fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    }).then((response) => {
-      if (response.status === 200) {
-        setLoading(false);
-        resetForm({});
-        setSubmitted(true);
-      }
-    });
-  }
+  // function onSubmit(values, { resetForm }) {
+  //   setLoading(true);
+  //   fetch('/api/contact', {
+  //     method: 'POST',
+  //     headers: {
+  //       Accept: 'application/json, text/plain, */*',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(values),
+  //   }).then((response) => {
+  //     if (response.status === 200) {
+  //       setLoading(false);
+  //       resetForm({});
+  //       setSubmitted(true);
+  //     }
+  //   });
+  // }
 
   return (
     <>
@@ -79,12 +72,17 @@ function Contact({ teamMembers, camps }) {
               <p className="mb-2 font-fries text-2xl">
                 Stuur ons een berichtje
               </p>
-              <div className={`${loading ? null : 'hidden'}`}>
+              {/* <div className={`${loading ? null : 'hidden'}`}>
                 <div className="flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
                   <RefreshIcon className="h-8 w-8 animate-spin" />
                 </div>
-              </div>
-              <div className={`${loading ? 'hidden' : null}`}>
+              </div> */}
+              <a href="mailto:info@divertido-kampen.be">
+                <div className="flex h-16 w-full items-center justify-center rounded bg-blue">
+                  <MailIcon className="h-8 w-8 text-white" />
+                </div>
+              </a>
+              {/* <div className={`${loading ? 'hidden' : null}`}>
                 {submitted ? (
                   <div className="flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
                     <CheckCircleIcon className="mb-1 h-5 w-5" />
@@ -162,7 +160,7 @@ function Contact({ teamMembers, camps }) {
                     }}
                   </Formik>
                 )}
-              </div>
+              </div> */}
             </div>
             <div className="mb-12 lg:mb-0 lg:w-1/2">
               <p className="mb-2 font-fries text-2xl">Divertido Kampen VZW</p>
