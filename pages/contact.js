@@ -42,19 +42,25 @@ function Contact({ teamMembers, camps }) {
       .join('&');
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': event.target.getAttribute('name'),
-        ...name,
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const res = await fetch('/api/sendgrid', {
+      body: JSON.stringify({
+        name,
+        email,
+        message,
       }),
-    })
-      .then(() => router.push('/'))
-      .catch((error) => alert(error));
-  };
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    });
+
+    const { error } = await res.json();
+    if (error) {
+      alert(error);
+    }
+  }
 
   return (
     <>
@@ -110,6 +116,7 @@ function Contact({ teamMembers, camps }) {
                         <input
                           required
                           id="name"
+                          name="name"
                           value={name}
                           className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans"
                           onChange={(e) => setName(e.target.value)}
@@ -124,7 +131,9 @@ function Contact({ teamMembers, camps }) {
                         </label>
                         <input
                           required
+                          type="email"
                           id="email"
+                          name="email"
                           value={email}
                           className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans"
                           onChange={(e) => setEmail(e.target.value)}
@@ -140,6 +149,7 @@ function Contact({ teamMembers, camps }) {
                         <textarea
                           required
                           id="message"
+                          name="message"
                           value={message}
                           className="h-48 w-full rounded-md border-2 border-blue px-3 font-sans"
                           onChange={(e) => setMessage(e.target.value)}
