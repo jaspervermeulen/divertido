@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import {
   BriefcaseIcon,
-  CheckCircleIcon,
   CreditCardIcon,
   MailIcon,
   PhoneIcon,
-  RefreshIcon,
 } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -19,8 +17,6 @@ import SEO from '../components/seo/seo';
 import KidsLogo from '../assets/illustrations/together.svg';
 
 function Contact({ teamMembers, camps }) {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [sortedTeamMembers, setSortedTeamMembers] = useState([]);
 
   const [name, setName] = useState('');
@@ -34,7 +30,7 @@ function Contact({ teamMembers, camps }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await fetch('/api/sendgrid', {
+    const res = await fetch('/api/contact', {
       body: JSON.stringify({
         name,
         email,
@@ -83,79 +79,66 @@ function Contact({ teamMembers, camps }) {
               <p className="mb-2 font-fries text-2xl">
                 Stuur ons een berichtje
               </p>
-              {loading && (
-                <div className="flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
-                  <RefreshIcon className="h-8 w-8 animate-spin" />
-                </div>
-              )}
-              <div className={`${loading ? 'hidden' : null}`}>
-                {submitted ? (
-                  <div className="flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
-                    <CheckCircleIcon className="mb-1 h-5 w-5" />
-                    <p className="ml-1.5">Het berichtje is verzonden!</p>
-                  </div>
-                ) : (
+
+              <div>
+                <form onSubmit={(e) => handleSubmit(e)} name="contact">
+                  <input type="hidden" name="form-name" value="contact" />
                   <div>
-                    <form onSubmit={(e) => handleSubmit(e)} name="contact">
-                      <input type="hidden" name="form-name" value="contact" />
-                      <div>
-                        <label
-                          className="font-sans text-lg font-medium"
-                          htmlFor="name"
-                        >
-                          Naam
-                        </label>
-                        <input
-                          required
-                          id="name"
-                          name="name"
-                          value={name}
-                          className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans"
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                      </div>
-                      <div className="mt-4">
-                        <label
-                          className="font-sans text-lg font-medium"
-                          htmlFor="email"
-                        >
-                          Email
-                        </label>
-                        <input
-                          required
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={email}
-                          className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans"
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </div>
-                      <div className="mt-4">
-                        <label
-                          htmlFor="message"
-                          className="font-sans text-lg font-medium"
-                        >
-                          Bericht
-                        </label>
-                        <textarea
-                          required
-                          id="message"
-                          name="message"
-                          value={message}
-                          className="h-48 w-full rounded-md border-2 border-blue px-3 font-sans"
-                          onChange={(e) => setMessage(e.target.value)}
-                        />
-                      </div>
-                      <button
-                        className="mt-4 h-12 w-full rounded-md bg-blue font-fries text-white hover:opacity-60"
-                        type="submit"
-                      >
-                        Verzend
-                      </button>
-                    </form>
+                    <label
+                      className="font-sans text-lg font-medium"
+                      htmlFor="name"
+                    >
+                      Naam
+                    </label>
+                    <input
+                      required
+                      id="name"
+                      name="name"
+                      value={name}
+                      className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans"
+                      onChange={(e) => setName(e.target.value)}
+                    />
                   </div>
-                )}
+                  <div className="mt-4">
+                    <label
+                      className="font-sans text-lg font-medium"
+                      htmlFor="email"
+                    >
+                      Email
+                    </label>
+                    <input
+                      required
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={email}
+                      className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="mt-4">
+                    <label
+                      htmlFor="message"
+                      className="font-sans text-lg font-medium"
+                    >
+                      Bericht
+                    </label>
+                    <textarea
+                      required
+                      id="message"
+                      name="message"
+                      value={message}
+                      className="h-48 w-full rounded-md border-2 border-blue px-3 font-sans"
+                      onChange={(e) => setMessage(e.target.value)}
+                    />
+                  </div>
+                  <button
+                    className="mt-4 h-12 w-full rounded-md bg-blue font-fries text-white hover:opacity-60"
+                    type="submit"
+                  >
+                    Verzend
+                  </button>
+                </form>
               </div>
             </div>
             <div className="mb-12 lg:mb-0 lg:w-1/2">
