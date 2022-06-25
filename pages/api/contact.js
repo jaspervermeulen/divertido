@@ -9,9 +9,9 @@ async function sendEmail(req, res) {
       to: 'jaspervermeulen@icloud.com', // Your email where you'll receive emails
       from: 'jaspervermeulen@icloud.com', // your website email address here
       subject: `Contact`,
-      html: `<p>${req.body.name}</p>
-            <p>${req.body.email}</p>       
-            <p>${req.body.message}</p>`,
+      html: `<p>Naam: ${req.body.name}</p>
+            <p>Email: ${req.body.email}</p>       
+            <p>Berichtje: ${req.body.message}</p>`,
     });
   } catch (error) {
     // console.log(error);
