@@ -9,11 +9,11 @@ async function sendEmail(req, res) {
       to: 'jaspervermeulen@icloud.com', // Your email where you'll receive emails
       from: 'jaspervermeulen@icloud.com', // your website email address here
       subject: `Registratie`,
-      html: `<p>Naam kind: ${`${req.body.firstName} ${req.body.lastName}`}</p>
+      html: `<p>Naam kind: ${req.body.firstName} ${req.body.lastName}</p>
             <p>Geboortedatum: ${req.body.birthDate}</p>       
             <p>Leerjaar: ${req.body.grade}</p>
              <p>Geslacht: ${req.body.gender}</p>
-            <p>Naam ouder: ${`${req.body.parentFirstName} ${req.body.parentLastName}`}</p>``
+            <p>Naam ouder: ${req.body.parentFirstName} ${req.body.parentLastName}</p>
             <p>Mail ouder: ${req.body.parentMail}</p>
              <p>Gsm ouder: ${req.body.parentPhone}</p>
               <p>Adres ouder: ${req.body.parentAdres}</p>
