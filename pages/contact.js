@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import {
   BriefcaseIcon,
+  CheckCircleIcon,
   CreditCardIcon,
   MailIcon,
   PhoneIcon,
+  RefreshIcon,
 } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Footer from '../components/footer/footer';
@@ -13,35 +15,22 @@ import Heading from '../components/heading/heading';
 
 import ProfileCard from '../components/profileCard/profileCard';
 import SEO from '../components/seo/seo';
-
+import FormikInput from '../components/input/formikInput';
 import KidsLogo from '../assets/illustrations/together.svg';
+import FormikButton from '../components/button/formikButton';
 
 function Contact({ teamMembers, camps }) {
-  // const [submitted, setSubmitted] = useState(false);
-  // const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [sortedTeamMembers, setSortedTeamMembers] = useState([]);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     setSortedTeamMembers(teamMembers.sort((a, b) => a.order - b.order));
   }, [teamMembers]);
-
-  // function onSubmit(values, { resetForm }) {
-  //   setLoading(true);
-  //   fetch('/api/contact', {
-  //     method: 'POST',
-  //     headers: {
-  //       Accept: 'application/json, text/plain, */*',
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(values),
-  //   }).then((response) => {
-  //     if (response.status === 200) {
-  //       setLoading(false);
-  //       resetForm({});
-  //       setSubmitted(true);
-  //     }
-  //   });
-  // }
 
   return (
     <>
@@ -50,7 +39,7 @@ function Contact({ teamMembers, camps }) {
       <Layout>
         <Heading>Contact</Heading>
         <div className="flex flex-col gap-12">
-          <div className="">
+          <div>
             <p className="font-fries text-2xl">Team</p>
             <div className="mt-2 grid grid-cols-1 gap-6 lg:grid-cols-2">
               {sortedTeamMembers.map((teamMember, id) => (
@@ -72,95 +61,75 @@ function Contact({ teamMembers, camps }) {
               <p className="mb-2 font-fries text-2xl">
                 Stuur ons een berichtje
               </p>
-              {/* <div className={`${loading ? null : 'hidden'}`}>
+              {loading && (
                 <div className="flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
                   <RefreshIcon className="h-8 w-8 animate-spin" />
                 </div>
-              </div> */}
-              <a href="mailto:info@divertido-kampen.be">
-                <div className="flex h-16 w-full items-center justify-center rounded bg-blue">
-                  <MailIcon className="h-8 w-8 text-white" />
-                </div>
-              </a>
-              {/* <div className={`${loading ? 'hidden' : null}`}>
+              )}
+              <div className={`${loading ? 'hidden' : null}`}>
                 {submitted ? (
                   <div className="flex items-center justify-center rounded-lg bg-blue p-6 font-fries text-xl text-white">
                     <CheckCircleIcon className="mb-1 h-5 w-5" />
                     <p className="ml-1.5">Het berichtje is verzonden!</p>
                   </div>
                 ) : (
-                  <Formik
-                    initialValues={initialContact}
-                    validationSchema={ContactSchema}
-                    onSubmit={(values, { resetForm }) =>
-                      onSubmit(values, { resetForm })
-                    }
-                  >
-                    {(formik) => {
-                      const { errors, touched, isValid, dirty } = formik;
-                      return (
-                        <div>
-                          <Form>
-                            <div>
-                              <FormikInput
-                                as="input"
-                                errors={errors}
-                                touched={touched}
-                                name="name"
-                                id="name"
-                                type="text"
-                                label="Naam *"
-                                htmlFor="name"
-                              />
-                              <FormikInput
-                                as="input"
-                                errors={errors}
-                                touched={touched}
-                                name="email"
-                                id="email"
-                                type="email"
-                                label="Email *"
-                                htmlFor="email"
-                                className="mt-4 w-full"
-                              />
-                              <FormikInput
-                                as="input"
-                                errors={errors}
-                                touched={touched}
-                                name="subject"
-                                id="subject"
-                                type="text"
-                                label="Onderwerp *"
-                                htmlFor="subject"
-                                className="mt-4"
-                              />
-                            </div>
-                            <div>
-                              <FormikInput
-                                as="textarea"
-                                errors={errors}
-                                touched={touched}
-                                name="message"
-                                id="message"
-                                type="text"
-                                label="Bericht *"
-                                htmlFor="message"
-                                className="mt-4"
-                              />
-                            </div>
-                            <FormikButton
-                              dirty={dirty}
-                              isValid={isValid}
-                              label="Verzend"
-                              className="mt-6 bg-blue transition-all hover:-translate-y-1 hover:bg-blue-dark hover:shadow-xl"
-                            />
-                          </Form>
-                        </div>
-                      );
-                    }}
-                  </Formik>
+                  <div>
+                    <form method="POST" data-netlify="true" name="contact">
+                      <div>
+                        <label
+                          className="font-sans text-lg font-medium"
+                          htmlFor="name"
+                        >
+                          Naam
+                        </label>
+                        <input
+                          required
+                          id="name"
+                          value={name}
+                          className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans"
+                          onChange={(e) => setName(e.target.value)}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label
+                          className="font-sans text-lg font-medium"
+                          htmlFor="email"
+                        >
+                          Email
+                        </label>
+                        <input
+                          required
+                          id="email"
+                          value={email}
+                          className="h-11 w-full rounded-md border-2 border-blue px-3 font-sans"
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label
+                          htmlFor="message"
+                          className="font-sans text-lg font-medium"
+                        >
+                          Bericht
+                        </label>
+                        <textarea
+                          required
+                          id="message"
+                          value={message}
+                          className="h-48 w-full rounded-md border-2 border-blue px-3 font-sans"
+                          onChange={(e) => setMessage(e.target.value)}
+                        />
+                      </div>
+                      <button
+                        className="mt-4 h-12 w-full rounded-md bg-blue font-fries text-white hover:opacity-60"
+                        type="submit"
+                      >
+                        Verzend
+                      </button>
+                    </form>
+                  </div>
                 )}
-              </div> */}
+              </div>
             </div>
             <div className="mb-12 lg:mb-0 lg:w-1/2">
               <p className="mb-2 font-fries text-2xl">Divertido Kampen VZW</p>
