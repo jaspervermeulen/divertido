@@ -16,9 +16,7 @@ import Heading from '../components/heading/heading';
 
 import ProfileCard from '../components/profileCard/profileCard';
 import SEO from '../components/seo/seo';
-import FormikInput from '../components/input/formikInput';
 import KidsLogo from '../assets/illustrations/together.svg';
-import FormikButton from '../components/button/formikButton';
 
 function Contact({ teamMembers, camps }) {
   const [submitted, setSubmitted] = useState(false);
@@ -33,14 +31,6 @@ function Contact({ teamMembers, camps }) {
   useEffect(() => {
     setSortedTeamMembers(teamMembers.sort((a, b) => a.order - b.order));
   }, [teamMembers]);
-
-  function encode(data) {
-    return Object.keys(data)
-      .map(
-        (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-      )
-      .join('&');
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -59,6 +49,8 @@ function Contact({ teamMembers, camps }) {
     const { error } = await res.json();
     if (error) {
       alert(error);
+    } else {
+      router.push('/');
     }
   }
 
@@ -170,12 +162,6 @@ function Contact({ teamMembers, camps }) {
               <p className="mb-2 font-fries text-2xl">Divertido Kampen VZW</p>
               <div className="flex flex-col items-start gap-6 rounded-lg border-4 border-orange border-opacity-50 py-4 px-6 hover:border-blue sm:flex-row sm:items-center sm:gap-0">
                 <div className="relative h-44 w-48">
-                  {/* <Image
-                    src={TogetherLogo}
-                    alt="Logo"
-                    layout="fill"
-                    placeholder="blur"
-                  /> */}
                   <Image src={KidsLogo} layout="fill" />
                 </div>
 
