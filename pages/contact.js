@@ -75,6 +75,7 @@ function Contact({ teamMembers, camps }) {
                 ) : (
                   <div>
                     <form method="POST" netlify name="contact">
+                      <input type="hidden" name="form-name" value="contact" />
                       <div>
                         <label
                           className="font-sans text-lg font-medium"
