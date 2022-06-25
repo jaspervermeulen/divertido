@@ -8,6 +8,7 @@ import {
   RefreshIcon,
 } from '@heroicons/react/outline';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import Footer from '../components/footer/footer';
 import Header from '../components/header/header';
 import Layout from '../components/layout/layout';
@@ -27,10 +28,33 @@ function Contact({ teamMembers, camps }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     setSortedTeamMembers(teamMembers.sort((a, b) => a.order - b.order));
   }, [teamMembers]);
+
+  function encode(data) {
+    return Object.keys(data)
+      .map(
+        (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+      )
+      .join('&');
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': event.target.getAttribute('name'),
+        ...name,
+      }),
+    })
+      .then(() => router.push('/'))
+      .catch((error) => alert(error));
+  };
 
   return (
     <>
@@ -74,7 +98,7 @@ function Contact({ teamMembers, camps }) {
                   </div>
                 ) : (
                   <div>
-                    <form method="POST" netlify name="contact">
+                    <form onSubmit={(e) => handleSubmit(e)} name="contact">
                       <input type="hidden" name="form-name" value="contact" />
                       <div>
                         <label
